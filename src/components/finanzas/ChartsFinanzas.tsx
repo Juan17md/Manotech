@@ -1,0 +1,232 @@
+'use client'
+
+import { useMemo, useSyncExternalStore } from 'react'
+import { Venta, esVentaMultiProducto, obtenerTotalVenta } from '@/types'
+import { useTheme } from '@/components/providers/ThemeProvider'
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell,
+  CartesianGrid,
+} from 'recharts'
+
+const DIAS_LABEL = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+
+interface Props {
+  ventas: Venta[]
+  semanaInicio?: Date
+}
+
+const METODO_COLORS: Record<string, string> = {
+  Efectivo: '#10B981',
+  'Pago Móvil': '#00F2FE',
+  Transferencia: '#FF9F43',
+  Tarjeta: '#8B5CF6',
+  Punto: '#F472B6',
+  Zelle: '#6366F1',
+  Binance: '#F0B90B',
+}
+
+export default function ChartsFinanzas({ ventas, semanaInicio }: Props) {
+  const { theme } = useTheme()
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  )
+
+  const diarias = useMemo(() => {
+    if (!semanaInicio) return []
+    const totales = [0, 0, 0, 0, 0, 0, 0]
+    const inicioDia = (offset: number) => {
+      const d = new Date(semanaInicio)
+      d.setDate(d.getDate() + offset)
+      return d
+    }
+    ventas.forEach(v => {
+      const f = new Date(v.fecha)
+      for (let i = 0; i < 7; i++) {
+        const diaInicio = inicioDia(i)
+        const diaFin = new Date(diaInicio)
+        diaFin.setHours(23, 59, 59, 999)
+        if (f >= diaInicio && f <= diaFin) {
+          totales[i] += obtenerTotalVenta(v)
+          break
+        }
+      }
+    })
+    return DIAS_LABEL.map((dia, i) => ({
+      dia,
+      total: Math.round(totales[i] * 100) / 100,
+    }))
+  }, [ventas, semanaInicio])
+
+  const metodosPago = useMemo(() => {
+    const agrupado: Record<string, number> = {}
+    ventas.forEach(v => {
+      agrupado[v.metodoPago] = (agrupado[v.metodoPago] || 0) + obtenerTotalVenta(v)
+    })
+    return Object.entries(agrupado)
+      .map(([metodo, total]) => ({
+        metodo,
+        total: Math.round(total * 100) / 100,
+      }))
+      .sort((a, b) => b.total - a.total)
+  }, [ventas])
+
+  const topProductos = useMemo(() => {
+    const agrupado: Record<string, number> = {}
+    ventas.forEach(v => {
+      if (esVentaMultiProducto(v)) {
+        v.items!.forEach(item => {
+          agrupado[item.nombreProducto] = (agrupado[item.nombreProducto] || 0) + item.cantidadVendida
+        })
+      } else if (v.nombreProducto) {
+        agrupado[v.nombreProducto] = (agrupado[v.nombreProducto] || 0) + (v.cantidadVendida || 1)
+      }
+    })
+    return Object.entries(agrupado)
+      .map(([producto, total]) => ({ producto, total }))
+      .sort((a, b) => b.total - a.total)
+      .slice(0, 10)
+  }, [ventas])
+
+  const tooltipStyle: React.CSSProperties = {
+    background: 'var(--color-superficie)',
+    border: '1px solid var(--glass-border)',
+    borderRadius: '12px',
+    padding: '8px 12px',
+    boxShadow: 'var(--glass-shadow)',
+  }
+
+  const gridStroke = theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.06)'
+  const totalMetodos = useMemo(() => metodosPago.reduce((a, b) => a + b.total, 0), [metodosPago])
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+
+      {/* Ventas Diarias — full width */}
+      <div className="lg:col-span-2 glass-panel p-5 md:p-6 rounded-2xl">
+        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario mb-4">Ventas Diarias (Semana)</h3>
+        <div className="h-72 w-full">
+          {!isMounted ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="w-6 h-6 border-2 border-acento-primario border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : diarias.some(d => d.total > 0) ? (
+            <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <BarChart data={diarias} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                <CartesianGrid stroke={gridStroke} vertical={false} />
+                <XAxis dataKey="dia" tick={{ fill: 'var(--color-texto-secundario)', fontSize: 12 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: 'var(--color-texto-secundario)', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(value) => `$${Number(value).toFixed(2)}`} />
+                <Tooltip
+                  contentStyle={tooltipStyle}
+                  labelStyle={{ color: 'var(--color-texto-primario)' }}
+                  formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Ventas']}
+                />
+                <Bar dataKey="total" fill="var(--color-acento-primario)" radius={[6, 6, 0, 0]} barSize={32} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <p className="text-texto-secundario text-sm">Sin ventas en esta semana</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Distribución por Método de Pago */}
+      <div className="glass-panel p-5 md:p-6 rounded-2xl">
+        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario mb-4">Distribución por Método de Pago</h3>
+        <div className="h-72 w-full flex items-center justify-center">
+          {!isMounted ? (
+            <div className="w-6 h-6 border-2 border-acento-primario border-t-transparent rounded-full animate-spin" />
+          ) : metodosPago.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <PieChart>
+                <Pie
+                  data={metodosPago}
+                  dataKey="total"
+                  nameKey="metodo"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={55}
+                  outerRadius={90}
+                  paddingAngle={3}
+                  labelLine={false}
+                  label={({ payload, x, y }) => {
+                    const pct = ((payload.total / totalMetodos) * 100).toFixed(1)
+                    return (
+                      <text x={x} y={y} textAnchor="middle" dominantBaseline="central" fill="var(--color-texto-primario)" fontSize={12} fontWeight={700}>
+                        {pct}%
+                      </text>
+                    )
+                  }}
+                >
+                  {metodosPago.map(entry => (
+                    <Cell key={entry.metodo} fill={METODO_COLORS[entry.metodo] || '#6366F1'} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={tooltipStyle}
+                  labelStyle={{ color: 'var(--color-texto-primario)' }}
+                  formatter={(value) => {
+                    const pct = ((Number(value) / totalMetodos) * 100).toFixed(1)
+                    return [`$${Number(value).toFixed(2)} (${pct}%)`, 'Total']
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-texto-secundario text-sm">Sin datos de ventas</p>
+          )}
+        </div>
+        <div className="flex flex-wrap justify-center gap-3 mt-3">
+          {metodosPago.map(m => (
+            <span key={m.metodo} className="flex items-center gap-1.5 text-xs text-texto-secundario">
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background: METODO_COLORS[m.metodo] || '#6366F1' }} />
+              {m.metodo}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Top Productos Más Vendidos */}
+      <div className="glass-panel p-5 md:p-6 rounded-2xl">
+        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario mb-4">Productos Más Vendidos</h3>
+        <div className="h-72 w-full">
+          {!isMounted ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="w-6 h-6 border-2 border-acento-primario border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : topProductos.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <BarChart data={topProductos} layout="vertical" margin={{ top: 0, right: 20, left: 10, bottom: 0 }}>
+                <CartesianGrid stroke={gridStroke} horizontal={false} />
+                <XAxis type="number" tick={{ fill: 'var(--color-texto-secundario)', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <YAxis
+                  type="category"
+                  dataKey="producto"
+                  tick={{ fill: 'var(--color-texto-primario)', fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={140}
+                />
+                <Tooltip
+                  contentStyle={tooltipStyle}
+                  labelStyle={{ color: 'var(--color-texto-secundario)' }}
+                  formatter={(value) => [`${value} und.`, 'Cantidad']}
+                />
+                <Bar dataKey="total" fill="var(--color-acento-aviso)" radius={[0, 6, 6, 0]} barSize={20} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <p className="text-texto-secundario text-sm">Sin datos de ventas</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+    </div>
+  )
+}

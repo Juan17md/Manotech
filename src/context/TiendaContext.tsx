@@ -1,0 +1,524 @@
+'use client';
+
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, query, orderBy, runTransaction, setDoc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged, getIdToken, User } from 'firebase/auth';
+import { db, app } from '@/services/firebase';
+import { Producto, Venta, ItemVenta, GastoOperativo, RolUsuario, Usuario, MetodoPago, RetiroCaja, CierreCaja, esVentaMultiProducto } from '@/types';
+import { obtenerMensajeError } from '@/utils/errores';
+
+export interface TiendaState {
+  isOffline: boolean;
+  user: User | null;
+  authLoading: boolean;
+  rol: RolUsuario | null;
+  rolLoading: boolean;
+  bloqueado: boolean;
+  primerInicio: boolean;
+  
+  // Productos
+  productos: Producto[];
+  loadingProductos: boolean;
+  agregarProducto: (producto: Omit<Producto, 'id' | 'creadoEn'>) => Promise<void>;
+  actualizarProducto: (id: string, datos: Partial<Producto>) => Promise<void>;
+  eliminarProducto: (id: string) => Promise<void>;
+
+  // Ventas y Finanzas
+  ventas: Venta[];
+  gastos: GastoOperativo[];
+  registrarVenta: (payload: NuevaVentaPayload) => Promise<void>;
+  registrarGasto: (gasto: Omit<GastoOperativo, 'id' | 'fecha'>) => Promise<void>;
+  anularVenta: (id: string) => Promise<void>;
+
+  // Caja
+  retiros: RetiroCaja[];
+  cierres: CierreCaja[];
+  registrarRetiro: (retiro: Omit<RetiroCaja, 'id' | 'fecha'>) => Promise<void>;
+  eliminarRetiro: (id: string) => Promise<void>;
+  guardarCierre: (cierre: Omit<CierreCaja, 'id'>) => Promise<void>;
+
+  // Usuarios (solo admin)
+  usuarios: Usuario[];
+  loadingUsuarios: boolean;
+  crearUsuario: (email: string, password: string, rol: RolUsuario) => Promise<{ error?: string }>;
+  editarUsuario: (uid: string, datos: { email?: string; password?: string; rol?: RolUsuario }) => Promise<{ error?: string }>;
+  cambiarContrasena: (uid: string, password: string) => Promise<{ error?: string }>;
+  alternarBloqueoUsuario: (uid: string, bloqueado: boolean) => Promise<{ error?: string }>;
+  actualizarRolUsuario: (uid: string, rol: RolUsuario) => Promise<{ error?: string }>;
+  eliminarUsuario: (uid: string) => Promise<{ error?: string }>;
+
+  // Tasa de cambio BCV
+  tasaBCV: number | null;
+  fechaTasaBCV: string | null;
+  loadingTasa: boolean;
+}
+
+const defaultState: TiendaState = {
+  isOffline: false,
+  user: null, authLoading: true, rol: null, rolLoading: true, bloqueado: false, primerInicio: false,
+  productos: [], loadingProductos: true,
+  agregarProducto: async () => {}, actualizarProducto: async () => {}, eliminarProducto: async () => {},
+  ventas: [], gastos: [],
+  registrarVenta: async () => {}, registrarGasto: async () => {}, anularVenta: async () => {},
+  retiros: [], cierres: [],
+  registrarRetiro: async () => {}, eliminarRetiro: async () => {}, guardarCierre: async () => {},
+  usuarios: [], loadingUsuarios: true,
+  crearUsuario: async () => ({}), editarUsuario: async () => ({}), cambiarContrasena: async () => ({}), alternarBloqueoUsuario: async () => ({}), actualizarRolUsuario: async () => ({}), eliminarUsuario: async () => ({}),
+  tasaBCV: null, fechaTasaBCV: null, loadingTasa: true
+};
+
+// Payload para registrar ventas multi-producto
+export interface NuevaVentaPayload {
+  items: {
+    productoId: string;
+    nombreProducto: string;
+    cantidadVendida: number;
+    precioVentaFinal: number;
+  }[];
+  metodoPago: MetodoPago;
+  nombreCliente?: string;
+  cedulaCliente?: string;
+  telefonoCliente?: string;
+  direccionCliente?: string;
+}
+
+const TiendaContext = createContext<TiendaState>(defaultState);
+
+export const useTienda = () => useContext(TiendaContext);
+
+export function TiendaProvider({ children }: { children: React.ReactNode }) {
+  const [isOffline, setIsOffline] = useState<boolean>(
+    () => typeof navigator !== 'undefined' ? !navigator.onLine : false
+  );
+  const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [rol, setRol] = useState<RolUsuario | null>(null);
+  const [rolLoading, setRolLoading] = useState(true);
+  const [bloqueado, setBloqueado] = useState(false);
+  const [primerInicio, setPrimerInicio] = useState(false);
+  
+  const [productos, setProductos] = useState<Producto[]>([]);
+  const [ventas, setVentas] = useState<Venta[]>([]);
+  const [gastos, setGastos] = useState<GastoOperativo[]>([]);
+  const [retiros, setRetiros] = useState<RetiroCaja[]>([]);
+  const [cierres, setCierres] = useState<CierreCaja[]>([]);
+  const [loadingProductos, setLoadingProductos] = useState(true);
+
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const [loadingUsuarios, setLoadingUsuarios] = useState(true);
+
+  const [tasaBCV, setTasaBCV] = useState<number | null>(null);
+  const [fechaTasaBCV, setFechaTasaBCV] = useState<string | null>(null);
+  const [loadingTasa, setLoadingTasa] = useState(true);
+
+  // 0. Autenticación PWA
+  useEffect(() => {
+    const auth = getAuth(app);
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      if (!firebaseUser) {
+        setRol(null);
+        setRolLoading(false);
+        setBloqueado(false);
+        setPrimerInicio(false);
+        setUsuarios([]);
+        setLoadingUsuarios(false);
+      }
+      setAuthLoading(false);
+    });
+    return () => unsubscribeAuth();
+  }, []);
+
+  // 0.1 Cargar rol del usuario desde Firestore
+  useEffect(() => {
+    if (!user) return;
+
+    const usuarioRef = doc(db, 'usuarios', user.uid);
+    const unsub = onSnapshot(usuarioRef, (snap) => {
+      if (snap.exists()) {
+        const data = snap.data();
+        setRol(data.rol || null);
+        setBloqueado(data.bloqueado === true);
+        setPrimerInicio(data.primerInicio === true);
+      } else {
+        setRol(null);
+        setBloqueado(false);
+        setPrimerInicio(false);
+      }
+      setRolLoading(false);
+    }, () => {
+      setRolLoading(false);
+    });
+
+    return () => unsub();
+  }, [user]);
+
+  // 1. Detección Offline PWA
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // 2. Sincronización en Tiempo Real (Solo si hay usuario logueado)
+  useEffect(() => {
+    if (!user) return; // No descargar datos de Firestore si no está logueado
+
+    const unsubProductos = onSnapshot(query(collection(db, 'productos'), orderBy('nombre', 'asc')), (snapshot) => {
+      setProductos(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Producto[]);
+      setLoadingProductos(false);
+    });
+
+    const unsubVentas = onSnapshot(query(collection(db, 'ventas'), orderBy('fecha', 'desc')), (snapshot) => {
+      setVentas(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Venta[]);
+    });
+
+    const unsubGastos = onSnapshot(collection(db, 'gastos'), (snapshot) => {
+      const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as GastoOperativo[];
+      docs.sort((a, b) => {
+        const fechaA = a.fecha ? new Date(a.fecha).getTime() : 0;
+        const fechaB = b.fecha ? new Date(b.fecha).getTime() : 0;
+        return fechaB - fechaA;
+      });
+      setGastos(docs);
+    });
+
+    const unsubRetiros = onSnapshot(collection(db, 'retiros'), (snapshot) => {
+      const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as RetiroCaja[];
+      docs.sort((a, b) => {
+        const fechaA = a.fecha ? new Date(a.fecha).getTime() : 0;
+        const fechaB = b.fecha ? new Date(b.fecha).getTime() : 0;
+        return fechaB - fechaA;
+      });
+      setRetiros(docs);
+    });
+
+    const unsubCierres = onSnapshot(collection(db, 'cierres'), (snapshot) => {
+      const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as CierreCaja[];
+      docs.sort((a, b) => {
+        const fechaA = a.semanaInicio ? new Date(a.semanaInicio).getTime() : 0;
+        const fechaB = b.semanaInicio ? new Date(b.semanaInicio).getTime() : 0;
+        return fechaB - fechaA;
+      });
+      setCierres(docs);
+    });
+
+    return () => {
+      unsubProductos(); unsubVentas(); unsubGastos(); unsubRetiros(); unsubCierres();
+    };
+  }, [user]);
+
+  // 2.1 Sincronización de usuarios (solo admin)
+  useEffect(() => {
+    if (!user || rol !== 'admin') {
+      return;
+    }
+
+    const unsubUsuarios = onSnapshot(query(collection(db, 'usuarios'), orderBy('creadoEn', 'desc')), (snapshot) => {
+      setUsuarios(snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() })) as Usuario[]);
+      setLoadingUsuarios(false);
+    });
+
+    return () => unsubUsuarios();
+  }, [user, rol]);
+
+  // 3. Funciones CRUD Productos
+  const agregarProducto = async (producto: Omit<Producto, 'id' | 'creadoEn'>) => {
+    await addDoc(collection(db, 'productos'), { ...producto, creadoEn: new Date().toISOString() });
+  };
+  const actualizarProducto = async (id: string, datos: Partial<Producto>) => {
+    await updateDoc(doc(db, 'productos', id), datos);
+  };
+  const eliminarProducto = async (id: string) => {
+    await deleteDoc(doc(db, 'productos', id));
+  };
+
+  // 4. Funciones Finanzas / Ventas Atómicas (Multi-Producto)
+  const registrarVenta = async (payload: NuevaVentaPayload) => {
+    if (!payload.items || payload.items.length === 0) {
+      throw new Error('Debe agregar al menos un producto al carrito.');
+    }
+
+    await runTransaction(db, async (transaction) => {
+      // Fase 1: Leer todos los productos y validar stock
+      const productoDocs: { ref: ReturnType<typeof doc>; data: Partial<Producto>; item: typeof payload.items[0] }[] = [];
+
+      for (const item of payload.items) {
+        const productoRef = doc(db, 'productos', item.productoId);
+        const prodDoc = await transaction.get(productoRef);
+        if (!prodDoc.exists()) throw new Error(`El producto "${item.nombreProducto}" ya no existe.`);
+
+        const currentStock = prodDoc.data().stockActual || 0;
+        if (currentStock < item.cantidadVendida) {
+          throw new Error(`No hay stock suficiente de "${item.nombreProducto}". Disponible: ${currentStock}, solicitado: ${item.cantidadVendida}.`);
+        }
+
+        productoDocs.push({ ref: productoRef, data: prodDoc.data(), item });
+      }
+
+      // Fase 2: Decrementar stock de cada producto
+      for (const { ref, data, item } of productoDocs) {
+        transaction.update(ref, { stockActual: (data.stockActual || 0) - item.cantidadVendida });
+      }
+
+      // Fase 3: Construir items con ganancia calculada
+      const itemsConGanancia: ItemVenta[] = productoDocs.map(({ data, item }) => {
+        const costoTotal = (data.costoCompra || 0) * item.cantidadVendida;
+        const ingresoTotal = item.precioVentaFinal * item.cantidadVendida;
+        return {
+          productoId: item.productoId,
+          nombreProducto: item.nombreProducto,
+          cantidadVendida: item.cantidadVendida,
+          precioVentaFinal: item.precioVentaFinal,
+          gananciaNeta: ingresoTotal - costoTotal,
+        };
+      });
+
+      const totalUSD = itemsConGanancia.reduce((acc, i) => acc + i.precioVentaFinal * i.cantidadVendida, 0);
+      const gananciaNetaTotal = itemsConGanancia.reduce((acc, i) => acc + i.gananciaNeta, 0);
+
+      // Fase 4: Crear documento de venta
+      const primerItem = itemsConGanancia[0];
+      const nuevaVentaRef = doc(collection(db, 'ventas'));
+
+      transaction.set(nuevaVentaRef, {
+        // Datos multi-producto
+        items: itemsConGanancia,
+        totalUSD,
+        gananciaNetaTotal,
+
+        // Campos legacy (primer item) para retrocompatibilidad
+        productoId: primerItem.productoId,
+        nombreProducto: primerItem.nombreProducto,
+        cantidadVendida: primerItem.cantidadVendida,
+        precioVentaFinal: primerItem.precioVentaFinal,
+        gananciaNeta: primerItem.gananciaNeta,
+
+        // Datos de la transacción
+        metodoPago: payload.metodoPago,
+        fecha: new Date().toISOString(),
+
+        // Datos del cliente
+        ...(payload.nombreCliente && { nombreCliente: payload.nombreCliente }),
+        ...(payload.cedulaCliente && { cedulaCliente: payload.cedulaCliente }),
+        ...(payload.telefonoCliente && { telefonoCliente: payload.telefonoCliente }),
+        ...(payload.direccionCliente && { direccionCliente: payload.direccionCliente }),
+      });
+    });
+  };
+
+  const registrarGasto = async (gasto: Omit<GastoOperativo, 'id' | 'fecha'>) => {
+    await addDoc(collection(db, 'gastos'), { ...gasto, fecha: new Date().toISOString() });
+  };
+
+  const anularVenta = async (id: string) => {
+    const ventaRef = doc(db, 'ventas', id);
+    
+    await runTransaction(db, async (transaction) => {
+      const ventaDoc = await transaction.get(ventaRef);
+      if (!ventaDoc.exists()) throw new Error("La venta no existe.");
+      
+      const ventaData = ventaDoc.data() as Venta;
+      if (ventaData.anulada) throw new Error("Esta venta ya ha sido anulada.");
+      
+      // Marcar la venta como anulada
+      transaction.update(ventaRef, { anulada: true });
+      
+      // Devolver stock: multi-producto o legacy
+      if (esVentaMultiProducto(ventaData)) {
+        for (const item of ventaData.items!) {
+          const productoRef = doc(db, 'productos', item.productoId);
+          const prodDoc = await transaction.get(productoRef);
+          if (prodDoc.exists()) {
+            const stockActual = prodDoc.data().stockActual || 0;
+            transaction.update(productoRef, {
+              stockActual: stockActual + item.cantidadVendida
+            });
+          }
+        }
+      } else if (ventaData.productoId) {
+        const productoRef = doc(db, 'productos', ventaData.productoId);
+        const prodDoc = await transaction.get(productoRef);
+        if (prodDoc.exists()) {
+          const stockActual = prodDoc.data().stockActual || 0;
+          transaction.update(productoRef, { 
+            stockActual: stockActual + ventaData.cantidadVendida 
+          });
+        }
+      }
+    });
+  };
+
+  // 4.1 Funciones Caja: Retiros y Cierres
+  const registrarRetiro = async (retiro: Omit<RetiroCaja, 'id' | 'fecha'>) => {
+    await addDoc(collection(db, 'retiros'), {
+      ...retiro,
+      fecha: new Date().toISOString(),
+    });
+  };
+
+  const eliminarRetiro = async (id: string) => {
+    await deleteDoc(doc(db, 'retiros', id));
+  };
+
+  const guardarCierre = async (cierre: Omit<CierreCaja, 'id'>) => {
+    await setDoc(doc(db, 'cierres', cierre.semanaInicio), cierre);
+  };
+
+  // 5. Funciones CRUD Usuarios (requieren Admin SDK via API routes)
+  const getAuthToken = async (): Promise<string> => {
+    const auth = getAuth(app);
+    if (!auth.currentUser) throw new Error('No autenticado');
+    return getIdToken(auth.currentUser);
+  };
+
+  const crearUsuario = useCallback(async (email: string, password: string, rol: RolUsuario): Promise<{ error?: string }> => {
+    try {
+      const token = await getAuthToken();
+      const res = await fetch('/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ email, password, rol }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Error al crear usuario' };
+      return {};
+    } catch (error) {
+      return { error: obtenerMensajeError(error) };
+    }
+  }, []);
+
+  const alternarBloqueoUsuario = useCallback(async (uid: string, bloquear: boolean): Promise<{ error?: string }> => {
+    try {
+      const token = await getAuthToken();
+      const res = await fetch(`/api/usuarios/${uid}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ bloqueado: bloquear }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Error al editar usuario' };
+      return {};
+    } catch (error) {
+      return { error: obtenerMensajeError(error) };
+    }
+  }, []);
+
+  const actualizarRolUsuario = useCallback(async (uid: string, rol: RolUsuario): Promise<{ error?: string }> => {
+    try {
+      const token = await getAuthToken();
+      const res = await fetch(`/api/usuarios/${uid}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ rol }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Error al actualizar usuario' };
+      return {};
+    } catch (error) {
+      return { error: obtenerMensajeError(error) };
+    }
+  }, []);
+
+  const eliminarUsuarioFn = useCallback(async (uid: string): Promise<{ error?: string }> => {
+    try {
+      const token = await getAuthToken();
+      const res = await fetch(`/api/usuarios/${uid}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Error al actualizar usuario' };
+      return {};
+    } catch (error) {
+      return { error: obtenerMensajeError(error) };
+    }
+  }, []);
+
+  const editarUsuarioFn = useCallback(async (uid: string, datos: { email?: string; password?: string; rol?: RolUsuario }): Promise<{ error?: string }> => {
+    try {
+      const token = await getAuthToken();
+      const res = await fetch(`/api/usuarios/${uid}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify(datos),
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Error al eliminar usuario' };
+      return {};
+    } catch (error) {
+      return { error: obtenerMensajeError(error) };
+    }
+  }, []);
+
+  const cambiarContrasenaFn = useCallback(async (uid: string, password: string): Promise<{ error?: string }> => {
+    try {
+      const token = await getAuthToken();
+      const res = await fetch(`/api/usuarios/${uid}/cambiar-contrasena`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Error al cambiar contraseña' };
+      setPrimerInicio(false);
+      return {};
+    } catch (error) {
+      return { error: obtenerMensajeError(error) };
+    }
+  }, []);
+
+  // 5. Cargar Tasa BCV Oficial
+  useEffect(() => {
+    const fetchTasa = async () => {
+      setLoadingTasa(true);
+      try {
+        const res = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
+        if (!res.ok) throw new Error('Error al consultar la API de DolarApi');
+        const data = await res.json();
+        
+        if (data && typeof data.promedio === 'number') {
+          setTasaBCV(data.promedio);
+          setFechaTasaBCV(data.fechaActualizacion || new Date().toISOString());
+          
+          // Guardar en caché
+          localStorage.setItem('pz_tasa_bcv', data.promedio.toString());
+          localStorage.setItem('pz_tasa_bcv_fecha', data.fechaActualizacion || new Date().toISOString());
+        }
+      } catch (error) {
+        console.error('Error fetching rate, trying cache:', error);
+        // Intentar recuperar de caché
+        const cachedTasa = localStorage.getItem('pz_tasa_bcv');
+        const cachedFecha = localStorage.getItem('pz_tasa_bcv_fecha');
+        if (cachedTasa) {
+          setTasaBCV(parseFloat(cachedTasa));
+          setFechaTasaBCV(cachedFecha || null);
+        }
+      } finally {
+        setLoadingTasa(false);
+      }
+    };
+
+    fetchTasa();
+  }, []);
+
+  return (
+    <TiendaContext.Provider value={{ 
+      isOffline, user, authLoading, rol, rolLoading, bloqueado, primerInicio,
+      productos, loadingProductos,
+      agregarProducto, actualizarProducto, eliminarProducto,
+      ventas, gastos, registrarVenta, registrarGasto, anularVenta,
+      retiros, cierres, registrarRetiro, eliminarRetiro, guardarCierre,
+      usuarios, loadingUsuarios,
+      crearUsuario, editarUsuario: editarUsuarioFn, cambiarContrasena: cambiarContrasenaFn, alternarBloqueoUsuario, actualizarRolUsuario, eliminarUsuario: eliminarUsuarioFn,
+      tasaBCV, fechaTasaBCV, loadingTasa
+    }}>
+      {children}
+    </TiendaContext.Provider>
+  );
+}

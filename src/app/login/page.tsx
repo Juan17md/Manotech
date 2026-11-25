@@ -1,0 +1,143 @@
+'use client';
+
+import { useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { app, db } from '@/services/firebase';
+import { Lock, Mail, Key, Eye, EyeOff, Zap } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const auth = getAuth(app);
+      await signInWithEmailAndPassword(auth, email, password);
+
+      const ref = doc(db, 'config', 'suscripcion');
+      const snap = await getDoc(ref);
+      const activa = snap.exists() ? snap.data().activa !== false : true;
+
+      router.push(activa ? '/dashboard' : '/bloqueado');
+    } catch (err) {
+      console.error(err);
+      setError('Credenciales inválidas. Solo el propietario tiene acceso.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col lg:grid lg:grid-cols-2 relative overflow-hidden">
+
+      {/* Círculos luminosos ambientales para profundidad SaaS */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-acento-primario/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] bg-blue-600/10 blur-[60px] sm:blur-[100px] rounded-full pointer-events-none"></div>
+
+      {/* Columna izquierda: marca (pantalla completa) */}
+      <div className="hidden lg:flex flex-col items-center justify-center gap-6 p-10 relative bg-gradient-to-br from-acento-primario/10 via-transparent to-blue-600/10 border-r border-[var(--glass-border)]">
+        <img
+          src="/icono_sin_fondo.PNG"
+          alt="MANOTECH Logo"
+          className="w-auto h-44 object-contain drop-shadow-[0_0_30px_rgba(125,68,218,0.35)]"
+        />
+        <h1 className="font-plus-jakarta font-bold text-5xl text-texto-primario tracking-tight text-center">MANOTECH</h1>
+        <p className="text-texto-secundario font-medium text-center max-w-sm leading-relaxed">
+          Plataforma integral para la gestión de ventas, inventario y finanzas de tu negocio.
+        </p>
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-acento-primario/10 border border-acento-primario/20 text-acento-primario text-sm font-bold">
+          <Zap size={14} />
+          Panel de Administración
+        </div>
+      </div>
+
+      {/* Columna derecha: formulario (pantalla completa) */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center p-6 sm:p-10">
+        {/* Versión compacta de la marca en móvil */}
+        <div className="flex flex-col items-center text-center mb-10 lg:hidden">
+          <img
+            src="/icono_sin_fondo.PNG"
+            alt="MANOTECH Logo"
+            className="w-auto h-24 sm:h-28 mb-4 object-contain"
+          />
+          <h1 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">MANOTECH Admin</h1>
+          <p className="text-sm text-texto-secundario mt-2 font-medium">Ingresa tus credenciales de propietario</p>
+        </div>
+
+        <div className="w-full max-w-lg mx-auto">
+          <h2 className="hidden lg:block font-plus-jakarta font-bold text-4xl text-texto-primario tracking-tight mb-2">Bienvenido de nuevo</h2>
+          <p className="hidden lg:block text-sm text-texto-secundario mb-10 font-medium">Ingresa tus credenciales de propietario</p>
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            {error && (
+              <div className="p-4 rounded-xl bg-peligro/10 border border-peligro/20 text-peligro text-sm text-center font-medium shadow-sm flex items-center justify-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-peligro animate-pulse"></span>
+                {error}
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-texto-secundario uppercase tracking-wider">Correo Electrónico</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-texto-secundario group-focus-within:text-acento-primario transition-colors">
+                  <Mail size={20} />
+                </div>
+                <input
+                  required type="email"
+                  value={email} onChange={e => setEmail(e.target.value)}
+                  className="w-full bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-xl pl-12 pr-4 py-4 text-texto-primario placeholder-texto-secundario/50 focus:outline-none focus:border-acento-primario focus:ring-4 focus:ring-acento-primario/10 transition-all font-medium"
+                  placeholder="propietario@manotech.com"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-texto-secundario uppercase tracking-wider">Contraseña</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-texto-secundario group-focus-within:text-acento-primario transition-colors">
+                  <Key size={20} />
+                </div>
+                <input
+                  required
+                  type={mostrarContrasena ? 'text' : 'password'}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className={`w-full bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-xl pl-12 pr-12 py-4 text-texto-primario placeholder-texto-secundario/50 focus:outline-none focus:border-acento-primario focus:ring-4 focus:ring-acento-primario/10 transition-all font-medium ${mostrarContrasena ? 'tracking-normal' : 'tracking-widest'}`}
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-texto-secundario hover:text-acento-primario transition-colors duration-200"
+                  aria-label={mostrarContrasena ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {mostrarContrasena ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-4 mt-8 rounded-xl bg-acento-primario text-white font-bold flex items-center justify-center gap-2 active:scale-95 hover:-translate-y-1 hover:shadow-lg hover:shadow-acento-primario/30 hover:box-glow-primario transition-all duration-300 relative overflow-hidden group disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Lock size={20} className="text-white relative z-10" />
+              <span className="relative z-10 tracking-wide">{loading ? 'Verificando Identidad...' : 'Acceder al Sistema'}</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,128 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Función de seguridad base (App Monousuario)
+    function isOwner() {
+      return request.auth != null;
+    }
+
+    // Función para verificar si el usuario autenticado es administrador
+    function esAdmin() {
+      return isOwner()
+        && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == 'admin';
+    }
+
+    // ⚙️ REGLAS PARA CONFIGURACIÓN (solo usuarios autenticados)
+    match /config/{document} {
+      allow read, write: if isOwner();
+    }
+
+    // 👤 REGLAS PARA USUARIOS (admin lee todo, cada usuario solo su propio doc)
+    match /usuarios/{userId} {
+      allow read: if isOwner() && (esAdmin() || request.auth.uid == userId);
+      allow write: if false; // Solo Admin SDK puede escribir
+    }
+
+    // 📦 REGLAS PARA PRODUCTOS
+    match /productos/{productoId} {
+      allow read: if isOwner();
+      allow delete: if isOwner();
+
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasAll(['sku', 'nombre', 'marca', 'categoria', 'costoCompra', 'precioVenta', 'stockActual', 'stockMinimo'])
+        && request.resource.data.sku is string
+        && request.resource.data.nombre is string
+        && request.resource.data.marca is string
+        && request.resource.data.categoria in ['Teléfonos', 'Protectores', 'Cargadores', 'Auriculares', 'Otros']
+        && request.resource.data.costoCompra is number
+        && request.resource.data.precioVenta is number
+        && request.resource.data.stockActual is number
+        && request.resource.data.stockMinimo is number
+        && request.resource.data.costoCompra >= 0
+        && request.resource.data.precioVenta >= 0
+        && request.resource.data.stockActual >= 0
+        && request.resource.data.stockMinimo >= 0;
+    }
+
+    // 🛒 REGLAS PARA VENTAS
+    match /ventas/{ventaId} {
+      allow read: if isOwner();
+      allow delete: if isOwner();
+
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasAll(['productoId', 'nombreProducto', 'cantidadVendida', 'precioVentaFinal', 'metodoPago', 'gananciaNeta', 'fecha'])
+        && request.resource.data.productoId is string
+        && request.resource.data.nombreProducto is string
+        && request.resource.data.cantidadVendida is number
+        && request.resource.data.precioVentaFinal is number
+        && request.resource.data.metodoPago in ['Efectivo', 'Pago Móvil', 'Transferencia', 'Punto', 'Zelle', 'Binance']
+        && request.resource.data.gananciaNeta is number
+        && request.resource.data.fecha is string
+        && request.resource.data.cantidadVendida >= 0
+        && request.resource.data.precioVentaFinal >= 0
+        && request.resource.data.gananciaNeta >= 0
+        // Formato multi-producto (opcional en ventas legacy): si existe, debe ser válido
+        && (!request.resource.data.keys().hasAny(['totalUSD']) || (request.resource.data.totalUSD is number && request.resource.data.totalUSD >= 0))
+        && (!request.resource.data.keys().hasAny(['gananciaNetaTotal']) || (request.resource.data.gananciaNetaTotal is number && request.resource.data.gananciaNetaTotal >= 0))
+        && (!request.resource.data.keys().hasAny(['items']) || (request.resource.data.items is list && request.resource.data.items.size() >= 1));
+    }
+
+    // 📉 REGLAS PARA GASTOS
+    match /gastos/{gastoId} {
+      allow read: if isOwner();
+      allow delete: if isOwner();
+
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasAll(['descripcion', 'monto', 'categoria', 'metodoPago', 'fecha'])
+        && request.resource.data.descripcion is string
+        && request.resource.data.monto is number
+        && request.resource.data.categoria in ['Alquiler', 'Sueldos', 'Servicios', 'Publicidad', 'Reparaciones', 'Envíos', 'Suministros', 'Otros']
+        && request.resource.data.metodoPago in ['Efectivo', 'Pago Móvil', 'Transferencia', 'Punto', 'Zelle', 'Binance']
+        && request.resource.data.fecha is string
+        && request.resource.data.monto >= 0;
+    }
+
+    // 💰 REGLAS PARA RETIROS DE CAJA
+    match /retiros/{retiroId} {
+      allow read: if isOwner();
+      allow delete: if isOwner();
+
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasAll(['metodoPago', 'monto', 'fecha'])
+        && request.resource.data.metodoPago in ['Efectivo', 'Pago Móvil', 'Transferencia', 'Punto', 'Zelle', 'Binance']
+        && request.resource.data.monto is number
+        && request.resource.data.fecha is string
+        && request.resource.data.monto >= 0;
+    }
+
+    // 📆 REGLAS PARA CIERRES DE CAJA (sin borrado: registro contable histórico)
+    match /cierres/{cierreId} {
+      allow read: if isOwner();
+
+      allow create, update: if isOwner()
+        && request.resource.data.keys().hasAll([
+          'semanaInicio', 'semanaFin', 'montosVentas', 'montosRetiros',
+          'saldoEsperado', 'arqueoReal', 'diferencia',
+          'totalVentas', 'totalRetiros', 'totalEsperado', 'totalArqueo', 'totalDiferencia', 'fechaCierre'
+        ])
+        && request.resource.data.semanaInicio is string
+        && request.resource.data.semanaFin is string
+        && request.resource.data.fechaCierre is string
+        && request.resource.data.montosVentas is map
+        && request.resource.data.montosRetiros is map
+        && request.resource.data.saldoEsperado is map
+        && request.resource.data.arqueoReal is map
+        && request.resource.data.diferencia is map
+        && request.resource.data.totalVentas is number
+        && request.resource.data.totalRetiros is number
+        && request.resource.data.totalEsperado is number
+        && request.resource.data.totalArqueo is number
+        && request.resource.data.totalDiferencia is number
+        && request.resource.data.totalVentas >= 0
+        && request.resource.data.totalRetiros >= 0
+        && request.resource.data.totalEsperado >= 0
+        && request.resource.data.totalArqueo >= 0;
+    }
+  }
+}
