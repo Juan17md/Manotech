@@ -141,6 +141,17 @@ FIREBASE_ADMIN_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE K
 > [!WARNING]
 > Los archivos `.env*` están excluidos del repositorio. Nunca subas credenciales del Admin SDK.
 
+**Precedencia por entorno**
+
+| Archivo | Entorno | Uso |
+| :--- | :--- | :--- |
+| `.env.local` | Producción | Cliente + Admin de `nanotech-f12ac`; lo usan `next build` y `next start`. |
+| `.env.development.local` | Desarrollo | Cliente + Admin de `nanotech-dev-4d17d`; tiene prioridad en `next dev`. |
+| `.env` | Scripts | Solo Admin de producción, para utilidades ejecutadas sin `--env`. |
+| `.env.dev` | Scripts | Cliente + Admin de dev, para utilidades con `--env=.env.dev`. |
+
+De este modo `npm run dev` trabaja contra **dev** y el build de producción contra **producción**, sin editar archivos entre sesiones.
+
 ### 4. Reglas de Firestore
 
 ```bash
