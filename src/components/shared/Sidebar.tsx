@@ -19,18 +19,18 @@ interface GrupoNavegacion {
 
 const GRUPOS_NAVEGACION: GrupoNavegacion[] = [
   {
-    categoria: 'Operaciones',
-    items: [
-      { href: '/caja', label: 'Caja & Arqueo', icon: Wallet },
-      { href: '/inventario', label: 'Inventario', icon: PackageSearch },
-    ],
-  },
-  {
     categoria: 'Gestión & Datos',
     items: [
       { href: '/dashboard', label: 'Panel Principal', icon: LayoutDashboard },
       { href: '/finanzas', label: 'Finanzas', icon: CircleDollarSign },
       { href: '/historial', label: 'Historial', icon: History },
+    ],
+  },
+  {
+    categoria: 'Operaciones',
+    items: [
+      { href: '/caja', label: 'Caja', icon: Wallet },
+      { href: '/inventario', label: 'Inventario', icon: PackageSearch },
     ],
   },
   {
