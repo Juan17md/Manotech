@@ -58,9 +58,9 @@ export default function NuevoGastoModal({ isOpen, onClose, onNotify }: Props) {
         <div className="p-5 md:p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--glass-bg)]">
           <div className="flex items-center gap-3 text-peligro">
             <Receipt size={24} />
-            <h2 className="font-plus-jakarta text-xl font-bold">Registrar Gasto</h2>
+            <h2 className="font-titulos text-xl font-bold">Registrar Gasto</h2>
           </div>
-          <button onClick={onClose} aria-label="Cerrar modal de gasto" className="p-2 rounded-full hover:bg-white/10 text-texto-secundario transition-colors">
+          <button onClick={onClose} aria-label="Cerrar modal de gasto" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors">
             <X size={24} />
           </button>
         </div>
@@ -70,13 +70,13 @@ export default function NuevoGastoModal({ isOpen, onClose, onNotify }: Props) {
             
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-texto-secundario">Descripción</label>
-              <input required type="text" value={formData.descripcion} onChange={e => setFormData({...formData, descripcion: e.target.value})} className="w-full bg-fondo-principal border border-white/10 rounded-xl px-4 py-3 text-texto-primario focus:outline-none focus:border-peligro transition-all" placeholder="Ej: Pago de envío por MRW" />
+              <input required type="text" value={formData.descripcion} onChange={e => setFormData({...formData, descripcion: e.target.value})} className="w-full bg-fondo-principal border border-borde-sutil rounded-xl px-4 py-3 text-texto-primario focus:outline-none focus:border-peligro transition-all" placeholder="Ej: Pago de envío por MRW" />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-peligro">Monto Saliente ($)</label>
-                <input required type="number" step="0.01" min="0" value={formData.monto} onChange={e => setFormData({...formData, monto: e.target.value})} className="w-full bg-peligro/5 border border-peligro/20 rounded-xl px-4 py-3 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-peligro transition-all" placeholder="0.00" />
+                <input required type="number" step="0.01" min="0" value={formData.monto} onChange={e => setFormData({...formData, monto: e.target.value})} className="w-full bg-peligro/5 border border-peligro/20 rounded-xl px-4 py-3 font-cifras font-bold text-texto-primario focus:outline-none focus:border-peligro transition-all" placeholder="0.00" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-texto-secundario">Categoría</label>

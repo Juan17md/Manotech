@@ -9,14 +9,14 @@ export default function NotFound() {
 
       {/* Código 404 con efecto de glow */}
       <div className="relative mb-6">
-        <h1 className="font-space-grotesk text-[120px] sm:text-[160px] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-acento-primario/80 to-acento-primario/10 select-none">
+        <h1 className="font-cifras text-[120px] sm:text-[160px] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-acento-primario/80 to-acento-primario/10 select-none">
           404
         </h1>
         <div className="absolute inset-0 blur-3xl bg-acento-primario/10 rounded-full pointer-events-none" />
       </div>
 
       {/* Mensaje descriptivo */}
-      <h2 className="font-plus-jakarta text-2xl sm:text-3xl font-bold text-texto-primario mb-3">
+      <h2 className="font-titulos text-2xl sm:text-3xl font-bold text-texto-primario mb-3">
         Página no encontrada
       </h2>
       <p className="text-texto-secundario text-sm sm:text-base max-w-md mb-8 leading-relaxed">
@@ -42,7 +42,7 @@ export default function NotFound() {
       </div>
 
       {/* Branding sutil */}
-      <p className="mt-12 text-xs text-texto-secundario/60 font-space-grotesk tracking-widest uppercase">
+      <p className="mt-12 text-xs text-texto-secundario/60 font-cifras tracking-widest uppercase">
         MANOTECH
       </p>
     </div>

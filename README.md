@@ -102,86 +102,7 @@ La identidad visual se deriva directamente del logo de la marca.
 | Aviso | `#FF9F43` | Stock crítico |
 | Peligro | `#FF4949` | Gastos, errores y stock agotado |
 
-Los tokens viven en `src/app/globals.css` y se consumen como utilidades de Tailwind (`bg-superficie`, `text-acento-primario`, etc.). El modo claro redefine únicamente los valores, manteniendo la misma semántica.
-
----
-
-## Puesta en marcha
-
-### 1. Requisitos
-
-- Node.js 20 o superior
-- npm 10 o superior
-- Un proyecto de Firebase con Firestore y Authentication habilitados
-
-### 2. Instalación
-
-```bash
-npm ci
-```
-
-### 3. Variables de entorno
-
-Crea `.env.local` a partir de la plantilla de tu entorno. Como mínimo:
-
-```dotenv
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
-
-FIREBASE_ADMIN_PROJECT_ID=
-FIREBASE_ADMIN_CLIENT_EMAIL=
-FIREBASE_ADMIN_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-```
-
-> [!WARNING]
-> Los archivos `.env*` están excluidos del repositorio. Nunca subas credenciales del Admin SDK.
-
-### 4. Reglas de Firestore
-
-```bash
-npx -y firebase-tools@latest deploy --only firestore:rules
-```
-
-Las reglas se despliegan manualmente; no viajan con el build de Vercel.
-
-### 5. Desarrollo
-
-```bash
-npm run dev
-```
-
-### 6. Verificación
-
-```bash
-npm run lint
-npx tsc --noEmit
-npm test
-```
-
-Las pruebas de reglas requieren el emulador:
-
-```bash
-npm run test:reglas
-```
-
----
-
-## Scripts operativos
-
-| Script | Propósito |
-| :--- | :--- |
-| `node scripts/crear-usuario.mjs --env=.env.dev --email=... --password=... --rol=admin --si` | Crea una cuenta en Auth y su documento en `usuarios`. |
-| `node scripts/crear-admin.mjs --env=.env.dev --email=... --si` | Asegura el rol `admin` de una cuenta existente. |
-| `node scripts/cargar-inventario.mjs --env=.env.dev --si` | Carga el catálogo de prueba (72 productos) de forma idempotente por SKU. |
-| `node scripts/restaurar-backup.mjs --archivo=... --si` | Restaura un backup JSON de Firestore. |
-| `node scripts/generar-iconos.mjs` | Regenera los iconos PWA a partir de `public/icono_sin_fondo.PNG`. |
-
-> La carpeta `scripts/` se mantiene fuera del control de versiones por contener utilidades operativas.
+Los tokens viven en `src/app/globals.css` y se consumen como utilidades de Tailwind (`bg-superficie`, `text-acento-primario`, etc.). El **modo claro es el predeterminado** bajo el concepto *Cerámica Violeta*, con el violeta del logo (`#7D44DA`) como acento de detalles; el modo oscuro se conserva como alternativa.
 
 ---
 
@@ -198,6 +119,7 @@ npm run test:reglas
 
 - Base funcional replicada y adaptada a la identidad **MANOTECH**.
 - Entorno **dev** (`nanotech-dev-4d17d`) con administrador y catálogo de prueba.
+- **Vercel Preview** aislado sobre el entorno `dev`, para revisar cambios sin afectar los datos reales de producción.
 - Integraciones de Sentry/Telegram y backups a Google Drive **preparadas pero desactivadas** hasta configurar credenciales propias.
 - Pendiente: validación funcional manual, endurecimiento de reglas y despliegue a producción.
 

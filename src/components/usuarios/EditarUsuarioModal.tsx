@@ -63,11 +63,11 @@ export function EditarUsuarioModal({ usuario, abierto, onCerrar, onExito, onErro
           <div className="flex items-center gap-3 text-acento-aviso">
             <Save size={24} />
             <div>
-              <h2 className="font-plus-jakarta text-xl font-bold text-texto-primario">Editar Usuario</h2>
+              <h2 className="font-titulos text-xl font-bold text-texto-primario">Editar Usuario</h2>
               <p className="text-xs text-texto-secundario">{usuario.email}</p>
             </div>
           </div>
-          <button onClick={onCerrar} disabled={loading} aria-label="Cerrar modal de editar usuario" className="p-2 rounded-full hover:bg-white/10 text-texto-secundario transition-colors">
+          <button onClick={onCerrar} disabled={loading} aria-label="Cerrar modal de editar usuario" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors">
             <X size={24} />
           </button>
         </div>
@@ -86,7 +86,7 @@ export function EditarUsuarioModal({ usuario, abierto, onCerrar, onExito, onErro
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-fondo-principal border border-white/10 rounded-xl pl-10 pr-4 py-3 text-texto-primario placeholder-texto-secundario/50 focus:outline-none focus:border-acento-primario transition-all text-sm"
+                  className="w-full bg-fondo-principal border border-borde-sutil rounded-xl pl-10 pr-4 py-3 text-texto-primario placeholder-texto-secundario/50 focus:outline-none focus:border-acento-primario transition-all text-sm"
                 />
               </div>
             </div>
@@ -105,7 +105,7 @@ export function EditarUsuarioModal({ usuario, abierto, onCerrar, onExito, onErro
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   minLength={6}
-                  className="w-full bg-fondo-principal border border-white/10 rounded-xl pl-10 pr-4 py-3 text-texto-primario placeholder-texto-secundario/50 focus:outline-none focus:border-acento-primario transition-all text-sm"
+                  className="w-full bg-fondo-principal border border-borde-sutil rounded-xl pl-10 pr-4 py-3 text-texto-primario placeholder-texto-secundario/50 focus:outline-none focus:border-acento-primario transition-all text-sm"
                   placeholder="Sin cambios"
                 />
               </div>
@@ -121,7 +121,7 @@ export function EditarUsuarioModal({ usuario, abierto, onCerrar, onExito, onErro
                   className={`py-3 px-4 rounded-xl border font-bold text-sm transition-all active:scale-95 ${
                     rol === 'admin'
                       ? 'bg-acento-aviso/10 border-acento-aviso/30 text-acento-aviso'
-                      : 'border-[var(--glass-border)] text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+                      : 'border-[var(--glass-border)] text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
                   }`}
                 >
                   Admin
@@ -132,7 +132,7 @@ export function EditarUsuarioModal({ usuario, abierto, onCerrar, onExito, onErro
                   className={`py-3 px-4 rounded-xl border font-bold text-sm transition-all active:scale-95 ${
                     rol === 'operador'
                       ? 'bg-acento-primario/10 border-acento-primario/30 text-acento-primario'
-                      : 'border-[var(--glass-border)] text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+                      : 'border-[var(--glass-border)] text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
                   }`}
                 >
                   Operador

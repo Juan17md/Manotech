@@ -124,7 +124,7 @@ export default function InventarioPage() {
       {/* Header y Acciones */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario">Inventario</h2>
+          <h2 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario">Inventario</h2>
           <p className="text-texto-secundario mt-1 text-sm sm:text-base">Gestiona tu stock de teléfonos y accesorios.</p>
         </div>
         
@@ -152,10 +152,10 @@ export default function InventarioPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
         
         {/* Total Invertido */}
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Total Invertido</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-acento-primario mt-1 truncate">${totalesInventario.totalInvertido.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-acento-primario mt-1 truncate">${totalesInventario.totalInvertido.toFixed(2)}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-acento-primario/10 flex items-center justify-center text-acento-primario shrink-0 ml-3">
             <Wallet size={22} />
@@ -163,10 +163,10 @@ export default function InventarioPage() {
         </div>
 
         {/* Total de Ganancia */}
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Total de Ganancia</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${totalesInventario.totalGanancia.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${totalesInventario.totalGanancia.toFixed(2)}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-exito/10 flex items-center justify-center text-exito shrink-0 ml-3">
             <TrendingUp size={22} />
@@ -174,12 +174,12 @@ export default function InventarioPage() {
         </div>
 
         {/* Total Global */}
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Total Global</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${totalesInventario.total.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${totalesInventario.total.toFixed(2)}</h3>
           </div>
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 flex items-center justify-center text-texto-primario shrink-0 ml-3">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-superficie-hover flex items-center justify-center text-texto-primario shrink-0 ml-3">
             <BadgeDollarSign size={22} />
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function InventarioPage() {
           className={`flex-1 sm:flex-none px-5 sm:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
             activeTab === 'Telefonos' 
               ? 'bg-acento-primario text-white shadow-md' 
-              : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+              : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
           }`}
         >
           Teléfonos
@@ -203,7 +203,7 @@ export default function InventarioPage() {
           className={`flex-1 sm:flex-none px-5 sm:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
             activeTab === 'Accesorios' 
               ? 'bg-acento-primario text-white shadow-md' 
-              : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+              : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
           }`}
         >
           Accesorios
@@ -227,7 +227,7 @@ export default function InventarioPage() {
         
         {activeTab === 'Accesorios' && (
           <>
-            <div className="w-full h-px bg-white/10 sm:hidden" />
+            <div className="w-full h-px bg-acento-tenue sm:hidden" />
             <div className="sm:w-56">
               <Select
                 value={selectedCategoria}
@@ -268,7 +268,7 @@ export default function InventarioPage() {
       {productoAEliminar && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 sm:px-0">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setProductoAEliminar(null)}></div>
-          <div className="bg-fondo-principal border border-white/10 p-6 rounded-2xl shadow-2xl relative z-10 w-full max-w-sm flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-fondo-principal border border-borde-sutil p-6 rounded-2xl shadow-2xl relative z-10 w-full max-w-sm flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-peligro/10 flex items-center justify-center text-peligro shrink-0">
                 <AlertTriangle size={20} />
@@ -281,7 +281,7 @@ export default function InventarioPage() {
             <div className="flex justify-end gap-3 mt-2">
               <button 
                 onClick={() => setProductoAEliminar(null)}
-                className="px-4 py-2 rounded-xl text-sm font-bold text-texto-primario hover:bg-white/5 transition-colors"
+                className="px-4 py-2 rounded-xl text-sm font-bold text-texto-primario hover:bg-superficie-hover transition-colors"
               >
                 Cancelar
               </button>

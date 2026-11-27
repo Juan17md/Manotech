@@ -106,7 +106,7 @@ export default function ChartsFinanzas({ ventas, semanaInicio }: Props) {
 
       {/* Ventas Diarias — full width */}
       <div className="lg:col-span-2 glass-panel p-5 md:p-6 rounded-2xl">
-        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario mb-4">Ventas Diarias (Semana)</h3>
+        <h3 className="font-titulos font-bold text-lg text-texto-primario mb-4">Ventas Diarias (Semana)</h3>
         <div className="h-72 w-full">
           {!isMounted ? (
             <div className="flex items-center justify-center h-full">
@@ -136,7 +136,7 @@ export default function ChartsFinanzas({ ventas, semanaInicio }: Props) {
 
       {/* Distribución por Método de Pago */}
       <div className="glass-panel p-5 md:p-6 rounded-2xl">
-        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario mb-4">Distribución por Método de Pago</h3>
+        <h3 className="font-titulos font-bold text-lg text-texto-primario mb-4">Distribución por Método de Pago</h3>
         <div className="h-72 w-full flex items-center justify-center">
           {!isMounted ? (
             <div className="w-6 h-6 border-2 border-acento-primario border-t-transparent rounded-full animate-spin" />
@@ -192,7 +192,7 @@ export default function ChartsFinanzas({ ventas, semanaInicio }: Props) {
 
       {/* Top Productos Más Vendidos */}
       <div className="glass-panel p-5 md:p-6 rounded-2xl">
-        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario mb-4">Productos Más Vendidos</h3>
+        <h3 className="font-titulos font-bold text-lg text-texto-primario mb-4">Productos Más Vendidos</h3>
         <div className="h-72 w-full">
           {!isMounted ? (
             <div className="flex items-center justify-center h-full">

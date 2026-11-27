@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Sistema administrativo y de control de stock y ventas de teléfonos y accesorios.',
     start_url: '/dashboard',
     display: 'standalone',
-    background_color: '#1D0D2A', // Violeta Profundo de nuestro Design System
-    theme_color: '#2A1440',      // Violeta Superficie para la barra de estado
+    background_color: '#FAF8FE', // Cerámica violeta (modo claro predeterminado)
+    theme_color: '#FAF8FE',      // Barra de estado alineada al modo claro
     orientation: 'portrait-primary',
     icons: [
       {

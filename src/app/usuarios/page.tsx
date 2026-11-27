@@ -56,7 +56,7 @@ export default function UsuariosPage() {
       {/* Cabecera */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-plus-jakarta font-bold text-texto-primario">Gestión de Usuarios</h1>
+          <h1 className="text-2xl sm:text-3xl font-titulos font-bold text-texto-primario">Gestión de Usuarios</h1>
           <p className="text-sm text-texto-secundario mt-1">Administra los accesos al sistema</p>
         </div>
         <button
@@ -98,12 +98,12 @@ export default function UsuariosPage() {
             <tbody>
               {loadingUsuarios ? (
                 Array.from({ length: 3 }).map((_, i) => (
-                  <tr key={i} className="border-b border-white/5">
-                    <td className="py-4 px-5"><div className="h-4 w-40 bg-white/5 rounded animate-pulse" /></td>
-                    <td className="py-4 px-5 hidden sm:table-cell"><div className="h-4 w-16 bg-white/5 rounded animate-pulse" /></td>
-                    <td className="py-4 px-5 hidden sm:table-cell"><div className="h-4 w-20 bg-white/5 rounded animate-pulse" /></td>
-                    <td className="py-4 px-5 hidden md:table-cell"><div className="h-4 w-24 bg-white/5 rounded animate-pulse" /></td>
-                    <td className="py-4 px-5"><div className="h-4 w-24 bg-white/5 rounded animate-pulse ml-auto" /></td>
+                  <tr key={i} className="border-b border-borde-sutil/70">
+                    <td className="py-4 px-5"><div className="h-4 w-40 bg-superficie-hover rounded animate-pulse" /></td>
+                    <td className="py-4 px-5 hidden sm:table-cell"><div className="h-4 w-16 bg-superficie-hover rounded animate-pulse" /></td>
+                    <td className="py-4 px-5 hidden sm:table-cell"><div className="h-4 w-20 bg-superficie-hover rounded animate-pulse" /></td>
+                    <td className="py-4 px-5 hidden md:table-cell"><div className="h-4 w-24 bg-superficie-hover rounded animate-pulse" /></td>
+                    <td className="py-4 px-5"><div className="h-4 w-24 bg-superficie-hover rounded animate-pulse ml-auto" /></td>
                   </tr>
                 ))
               ) : usuarios.length === 0 ? (
@@ -115,7 +115,7 @@ export default function UsuariosPage() {
                 </tr>
               ) : (
                 usuarios.map((u) => (
-                  <tr key={u.uid} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                  <tr key={u.uid} className="border-b border-borde-sutil/70 hover:bg-white/[0.02] transition-colors">
                     <td className="py-4 px-5">
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-acento-primario/10 flex items-center justify-center shrink-0">
@@ -175,7 +175,7 @@ export default function UsuariosPage() {
                             <button
                               onClick={() => setEditandoUsuario(u)}
                               title="Editar usuario"
-                              className="p-2 rounded-lg text-texto-secundario hover:text-texto-primario hover:bg-white/5 transition-colors"
+                              className="p-2 rounded-lg text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover transition-colors"
                             >
                               <Pencil size={18} />
                             </button>

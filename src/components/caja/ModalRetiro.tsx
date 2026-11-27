@@ -56,9 +56,9 @@ export default function ModalRetiro({ isOpen, onClose, onNotify }: Props) {
         <div className="p-5 md:p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--glass-bg)]">
           <div className="flex items-center gap-3 text-acento-aviso">
             <Wallet size={24} />
-            <h2 className="font-plus-jakarta text-xl font-bold">Registrar Retiro</h2>
+            <h2 className="font-titulos text-xl font-bold">Registrar Retiro</h2>
           </div>
-          <button onClick={onClose} aria-label="Cerrar modal de retiro" className="p-2 rounded-full hover:bg-white/10 text-texto-secundario transition-colors">
+          <button onClick={onClose} aria-label="Cerrar modal de retiro" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors">
             <X size={24} />
           </button>
         </div>
@@ -85,7 +85,7 @@ export default function ModalRetiro({ isOpen, onClose, onNotify }: Props) {
                 min="0"
                 value={formData.monto}
                 onChange={e => setFormData({ ...formData, monto: e.target.value })}
-                className="w-full bg-acento-aviso/5 border border-acento-aviso/20 rounded-xl px-4 py-3 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-acento-aviso transition-all"
+                className="w-full bg-acento-aviso/5 border border-acento-aviso/20 rounded-xl px-4 py-3 font-cifras font-bold text-texto-primario focus:outline-none focus:border-acento-aviso transition-all"
                 placeholder="0.00"
               />
             </div>
@@ -96,7 +96,7 @@ export default function ModalRetiro({ isOpen, onClose, onNotify }: Props) {
                 type="text"
                 value={formData.concepto}
                 onChange={e => setFormData({ ...formData, concepto: e.target.value })}
-                className="w-full bg-fondo-principal border border-white/10 rounded-xl px-4 py-3 text-texto-primario focus:outline-none focus:border-acento-aviso transition-all"
+                className="w-full bg-fondo-principal border border-borde-sutil rounded-xl px-4 py-3 text-texto-primario focus:outline-none focus:border-acento-aviso transition-all"
                 placeholder="Ej: Compra de inventario, cambio de dólares..."
               />
             </div>

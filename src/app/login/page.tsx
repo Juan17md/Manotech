@@ -42,16 +42,16 @@ export default function LoginPage() {
 
       {/* Círculos luminosos ambientales para profundidad SaaS */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-acento-primario/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] bg-blue-600/10 blur-[60px] sm:blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] bg-acento-hover/10 blur-[60px] sm:blur-[100px] rounded-full pointer-events-none"></div>
 
       {/* Columna izquierda: marca (pantalla completa) */}
-      <div className="hidden lg:flex flex-col items-center justify-center gap-6 p-10 relative bg-gradient-to-br from-acento-primario/10 via-transparent to-blue-600/10 border-r border-[var(--glass-border)]">
+      <div className="hidden lg:flex flex-col items-center justify-center gap-6 p-10 relative bg-gradient-to-br from-acento-logo/10 via-transparent to-acento-hover/10 border-r border-[var(--glass-border)]">
         <img
           src="/icono_sin_fondo.PNG"
           alt="MANOTECH Logo"
           className="w-auto h-44 object-contain drop-shadow-[0_0_30px_rgba(125,68,218,0.35)]"
         />
-        <h1 className="font-plus-jakarta font-bold text-5xl text-texto-primario tracking-tight text-center">MANOTECH</h1>
+        <h1 className="font-titulos font-bold text-5xl text-texto-primario tracking-tight text-center">MANOTECH</h1>
         <p className="text-texto-secundario font-medium text-center max-w-sm leading-relaxed">
           Plataforma integral para la gestión de ventas, inventario y finanzas de tu negocio.
         </p>
@@ -70,12 +70,12 @@ export default function LoginPage() {
             alt="MANOTECH Logo"
             className="w-auto h-24 sm:h-28 mb-4 object-contain"
           />
-          <h1 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">MANOTECH Admin</h1>
+          <h1 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">MANOTECH Admin</h1>
           <p className="text-sm text-texto-secundario mt-2 font-medium">Ingresa tus credenciales de propietario</p>
         </div>
 
         <div className="w-full max-w-lg mx-auto">
-          <h2 className="hidden lg:block font-plus-jakarta font-bold text-4xl text-texto-primario tracking-tight mb-2">Bienvenido de nuevo</h2>
+          <h2 className="hidden lg:block font-titulos font-bold text-4xl text-texto-primario tracking-tight mb-2">Bienvenido de nuevo</h2>
           <p className="hidden lg:block text-sm text-texto-secundario mb-10 font-medium">Ingresa tus credenciales de propietario</p>
 
           <form onSubmit={handleLogin} className="space-y-5">

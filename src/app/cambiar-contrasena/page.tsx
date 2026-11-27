@@ -52,7 +52,7 @@ export default function CambiarContrasenaPage() {
             <CheckCircle size={32} className="text-exito" />
           </div>
           <div>
-            <h1 className="font-plus-jakarta font-bold text-2xl text-texto-primario">¡Contraseña actualizada!</h1>
+            <h1 className="font-titulos font-bold text-2xl text-texto-primario">¡Contraseña actualizada!</h1>
             <p className="text-sm text-texto-secundario mt-2">Serás redirigido al sistema en un momento...</p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function CambiarContrasenaPage() {
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-acento-aviso to-acento-primario flex items-center justify-center box-glow-primario mb-4 sm:mb-5 shadow-lg shadow-acento-primario/20">
             <Lock size={28} className="text-white" />
           </div>
-          <h1 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">
+          <h1 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">
             Primer Inicio de Sesión
           </h1>
           <p className="text-sm text-texto-secundario mt-2 font-medium max-w-xs">
@@ -134,8 +134,8 @@ export default function CambiarContrasenaPage() {
           {password.length > 0 && (
             <div className="flex items-center gap-2">
               <div className={`flex-1 h-1.5 rounded-full transition-all ${password.length >= 8 ? 'bg-exito' : password.length >= 6 ? 'bg-acento-aviso' : 'bg-peligro'}`} />
-              <div className={`flex-1 h-1.5 rounded-full transition-all ${/[A-Z]/.test(password) && /[a-z]/.test(password) ? 'bg-exito' : 'bg-white/10'}`} />
-              <div className={`flex-1 h-1.5 rounded-full transition-all ${/\d/.test(password) ? 'bg-exito' : 'bg-white/10'}`} />
+              <div className={`flex-1 h-1.5 rounded-full transition-all ${/[A-Z]/.test(password) && /[a-z]/.test(password) ? 'bg-exito' : 'bg-acento-tenue'}`} />
+              <div className={`flex-1 h-1.5 rounded-full transition-all ${/\d/.test(password) ? 'bg-exito' : 'bg-acento-tenue'}`} />
               <span className="text-[10px] text-texto-secundario ml-1">
                 {password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password)
                   ? 'Fuerte'

@@ -132,7 +132,7 @@ export default function ProductModal({ isOpen, onClose, productoEditar, activeTa
         
         {/* Header */}
         <div className="p-5 md:p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--glass-bg)]">
-          <h2 className="font-plus-jakarta text-xl font-bold text-texto-primario">
+          <h2 className="font-titulos text-xl font-bold text-texto-primario">
             {productoEditar ? 'Editar ' : 'Nuevo '}
             {productoEditar 
               ? (productoEditar.categoria === 'Teléfonos' ? 'Teléfono' : 'Accesorio')
@@ -217,18 +217,18 @@ export default function ProductModal({ isOpen, onClose, productoEditar, activeTa
             <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4 border-t border-[var(--glass-border)]">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-peligro">Costo Compra ($)</label>
-                <input required type="number" step="0.01" min="0" value={formData.costoCompra} onChange={e => setFormData({...formData, costoCompra: e.target.value})} className="w-full bg-[var(--glass-bg)] border border-peligro/30 rounded-xl px-4 py-3 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-peligro focus:ring-1 focus:ring-peligro transition-all" placeholder="0.00" />
+                <input required type="number" step="0.01" min="0" value={formData.costoCompra} onChange={e => setFormData({...formData, costoCompra: e.target.value})} className="w-full bg-[var(--glass-bg)] border border-peligro/30 rounded-xl px-4 py-3 font-cifras font-bold text-texto-primario focus:outline-none focus:border-peligro focus:ring-1 focus:ring-peligro transition-all" placeholder="0.00" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-exito">Precio Venta ($)</label>
-                <input required type="number" step="0.01" min="0" value={formData.precioVenta} onChange={e => setFormData({...formData, precioVenta: e.target.value})} className="w-full bg-[var(--glass-bg)] border border-exito/30 rounded-xl px-4 py-3 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-exito focus:ring-1 focus:ring-exito transition-all" placeholder="0.00" />
+                <input required type="number" step="0.01" min="0" value={formData.precioVenta} onChange={e => setFormData({...formData, precioVenta: e.target.value})} className="w-full bg-[var(--glass-bg)] border border-exito/30 rounded-xl px-4 py-3 font-cifras font-bold text-texto-primario focus:outline-none focus:border-exito focus:ring-1 focus:ring-exito transition-all" placeholder="0.00" />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-acento-primario">Stock Actual</label>
-                <input required type="number" min="0" value={formData.stockActual} onChange={e => setFormData({...formData, stockActual: e.target.value})} className="w-full bg-[var(--glass-bg)] border border-acento-primario/30 rounded-xl px-4 py-3 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-acento-primario focus:ring-1 focus:ring-acento-primario transition-all" placeholder="0" />
+                <input required type="number" min="0" value={formData.stockActual} onChange={e => setFormData({...formData, stockActual: e.target.value})} className="w-full bg-[var(--glass-bg)] border border-acento-primario/30 rounded-xl px-4 py-3 font-cifras font-bold text-texto-primario focus:outline-none focus:border-acento-primario focus:ring-1 focus:ring-acento-primario transition-all" placeholder="0" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-texto-secundario">Stock Mínimo</label>
