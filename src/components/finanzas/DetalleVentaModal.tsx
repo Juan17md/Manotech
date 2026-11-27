@@ -47,7 +47,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
             <ReceiptText size={24} />
             <h2 className="font-plus-jakarta text-xl font-bold text-texto-primario">Detalle de Ticket</h2>
           </div>
-          <button onClick={onClose} aria-label="Cerrar detalle de venta" className="p-2 rounded-full hover:bg-white/10 text-texto-secundario transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer">
+          <button onClick={onClose} aria-label="Cerrar detalle de venta" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer">
             <X size={24} />
           </button>
         </div>
@@ -55,7 +55,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
         <div className="overflow-y-auto p-5 md:p-6 space-y-6 pb-[calc(2rem+env(safe-area-inset-bottom))] md:pb-6">
           
           {/* Cabecera Estado */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-superficie-hover border border-borde-sutil/70">
             <div>
               <p className="text-[10px] text-texto-secundario uppercase tracking-wider">ID de Transacción</p>
               <p className="font-mono text-xs text-texto-primario mt-0.5">{venta.id}</p>
@@ -85,7 +85,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
                 {venta.items!.map((item, idx) => {
                   const subtotalUSD = item.precioVentaFinal * item.cantidadVendida;
                   return (
-                    <div key={idx} className="p-3 rounded-xl bg-fondo-principal/60 border border-white/5 flex justify-between items-center gap-3">
+                    <div key={idx} className="p-3 rounded-xl bg-fondo-principal/60 border border-borde-sutil/70 flex justify-between items-center gap-3">
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="w-8 h-8 rounded-lg bg-exito/10 text-exito flex items-center justify-center shrink-0">
                           <Package size={14} />
@@ -124,7 +124,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
               </div>
             ) : (
               /* Vista legacy (producto único) */
-              <div className="p-4 rounded-xl bg-fondo-principal/60 border border-white/5 space-y-3">
+              <div className="p-4 rounded-xl bg-fondo-principal/60 border border-borde-sutil/70 space-y-3">
                 <div className="flex justify-between items-start gap-4">
                   <div>
                     <p className="font-bold text-texto-primario text-base leading-tight">{venta.nombreProducto}</p>
@@ -135,7 +135,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
                   </div>
                 </div>
                 
-                <div className="border-t border-white/5 pt-3 flex justify-between items-center">
+                <div className="border-t border-borde-sutil/70 pt-3 flex justify-between items-center">
                   <p className="text-sm text-texto-secundario">Total de Venta:</p>
                   <div className="text-right">
                     <p className="font-space-grotesk font-bold text-texto-primario text-xl">${totalUSD.toFixed(2)}</p>
@@ -153,7 +153,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
           {/* Información del Cliente */}
           <div className="space-y-3">
             <h3 className="text-xs font-bold text-texto-secundario uppercase tracking-wider">Información del Cliente</h3>
-            <div className="p-4 rounded-xl bg-fondo-principal/60 border border-white/5 space-y-3.5">
+            <div className="p-4 rounded-xl bg-fondo-principal/60 border border-borde-sutil/70 space-y-3.5">
               {venta.nombreCliente || venta.cedulaCliente || venta.telefonoCliente || venta.direccionCliente ? (
                 <>
                   {venta.nombreCliente && (
@@ -203,14 +203,14 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
           <div className="space-y-3">
             <h3 className="text-xs font-bold text-texto-secundario uppercase tracking-wider">Pago y Fecha</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="p-3.5 rounded-xl bg-fondo-principal/60 border border-white/5 flex items-center gap-3">
+              <div className="p-3.5 rounded-xl bg-fondo-principal/60 border border-borde-sutil/70 flex items-center gap-3">
                 <ArrowRightLeft size={18} className="text-acento-primario shrink-0" />
                 <div>
                   <p className="text-[10px] text-texto-secundario uppercase leading-none">Método de Pago</p>
                   <p className="text-xs font-bold text-texto-primario mt-1.5">{venta.metodoPago}</p>
                 </div>
               </div>
-              <div className="p-3.5 rounded-xl bg-fondo-principal/60 border border-white/5 flex items-center gap-3">
+              <div className="p-3.5 rounded-xl bg-fondo-principal/60 border border-borde-sutil/70 flex items-center gap-3">
                 <Calendar size={18} className="text-acento-primario shrink-0" />
                 <div>
                   <p className="text-[10px] text-texto-secundario uppercase leading-none">Fecha de Registro</p>

@@ -134,8 +134,8 @@ export default function CambiarContrasenaPage() {
           {password.length > 0 && (
             <div className="flex items-center gap-2">
               <div className={`flex-1 h-1.5 rounded-full transition-all ${password.length >= 8 ? 'bg-exito' : password.length >= 6 ? 'bg-acento-aviso' : 'bg-peligro'}`} />
-              <div className={`flex-1 h-1.5 rounded-full transition-all ${/[A-Z]/.test(password) && /[a-z]/.test(password) ? 'bg-exito' : 'bg-white/10'}`} />
-              <div className={`flex-1 h-1.5 rounded-full transition-all ${/\d/.test(password) ? 'bg-exito' : 'bg-white/10'}`} />
+              <div className={`flex-1 h-1.5 rounded-full transition-all ${/[A-Z]/.test(password) && /[a-z]/.test(password) ? 'bg-exito' : 'bg-acento-tenue'}`} />
+              <div className={`flex-1 h-1.5 rounded-full transition-all ${/\d/.test(password) ? 'bg-exito' : 'bg-acento-tenue'}`} />
               <span className="text-[10px] text-texto-secundario ml-1">
                 {password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password)
                   ? 'Fuerte'

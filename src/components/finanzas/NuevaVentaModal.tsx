@@ -182,7 +182,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
               </span>
             )}
           </div>
-          <button onClick={() => { resetearFormulario(); onClose(); }} aria-label="Cerrar modal de nueva venta" className="p-2 rounded-full hover:bg-white/10 text-texto-secundario transition-colors">
+          <button onClick={() => { resetearFormulario(); onClose(); }} aria-label="Cerrar modal de nueva venta" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors">
             <X size={24} />
           </button>
         </div>
@@ -195,7 +195,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
             <div className="space-y-4 md:col-span-5 order-1 md:order-1">
               <p className="text-xs font-bold text-texto-secundario uppercase tracking-wider">Información del Cliente</p>
 
-              <div className="space-y-3 p-4 rounded-2xl border border-white/5 bg-fondo-principal/40 backdrop-blur-md">
+              <div className="space-y-3 p-4 rounded-2xl border border-borde-sutil/70 bg-fondo-principal/40 backdrop-blur-md">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <label className="text-[11px] font-medium text-texto-secundario">Nombre Completo</label>
@@ -204,7 +204,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                       value={nombreCliente}
                       onChange={e => setNombreCliente(e.target.value)}
                       placeholder="Ej. Juan Pérez"
-                      className="w-full bg-fondo-principal/60 border border-white/10 rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
+                      className="w-full bg-fondo-principal/60 border border-borde-sutil rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
                     />
                   </div>
                   <div className="space-y-1">
@@ -214,7 +214,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                       value={cedulaCliente}
                       onChange={e => setCedulaCliente(e.target.value)}
                       placeholder="Ej. V-12345678"
-                      className="w-full bg-fondo-principal/60 border border-white/10 rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
+                      className="w-full bg-fondo-principal/60 border border-borde-sutil rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
                     />
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                       value={telefonoCliente}
                       onChange={e => setTelefonoCliente(e.target.value)}
                       placeholder="Ej. 0412-1234567"
-                      className="w-full bg-fondo-principal/60 border border-white/10 rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
+                      className="w-full bg-fondo-principal/60 border border-borde-sutil rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
                     />
                   </div>
                   <div className="space-y-1">
@@ -236,7 +236,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                       value={direccionCliente}
                       onChange={e => setDireccionCliente(e.target.value)}
                       placeholder="Ej. Av. Bolívar local 5"
-                      className="w-full bg-fondo-principal/60 border border-white/10 rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
+                      className="w-full bg-fondo-principal/60 border border-borde-sutil rounded-xl px-3 py-2 text-sm text-texto-primario focus:outline-none focus:border-exito transition-all min-h-[40px]"
                     />
                   </div>
                 </div>
@@ -289,14 +289,14 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                 <p className="text-xs font-bold text-texto-secundario uppercase tracking-wider">Agregar Productos</p>
 
                 {/* Tabs Teléfonos / Accesorios */}
-                <div className="p-1 bg-fondo-principal rounded-xl flex border border-white/5">
+                <div className="p-1 bg-fondo-principal rounded-xl flex border border-borde-sutil/70">
                   <button
                     type="button"
                     onClick={() => setActiveTab('Telefonos')}
                     className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${
                       activeTab === 'Telefonos'
-                        ? 'bg-white/10 text-texto-primario shadow-sm'
-                        : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+                        ? 'bg-acento-tenue text-texto-primario shadow-sm'
+                        : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
                     }`}
                   >
                     Teléfonos
@@ -306,8 +306,8 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                     onClick={() => setActiveTab('Accesorios')}
                     className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${
                       activeTab === 'Accesorios'
-                        ? 'bg-white/10 text-texto-primario shadow-sm'
-                        : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+                        ? 'bg-acento-tenue text-texto-primario shadow-sm'
+                        : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
                     }`}
                   >
                     Accesorios
@@ -322,12 +322,12 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                     placeholder={activeTab === 'Telefonos' ? "Buscar teléfono por nombre..." : "Buscar accesorio..."}
                     value={busqueda}
                     onChange={e => setBusqueda(e.target.value)}
-                    className="w-full bg-fondo-principal border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-sm text-texto-primario focus:border-exito focus:outline-none transition-colors"
+                    className="w-full bg-fondo-principal border border-borde-sutil rounded-xl pl-9 pr-4 py-2.5 text-sm text-texto-primario focus:border-exito focus:outline-none transition-colors"
                   />
                 </div>
 
                 {/* Lista simplificada de productos disponibles */}
-                <div className="max-h-56 md:max-h-60 overflow-y-auto space-y-1.5 bg-fondo-principal rounded-xl p-1.5 border border-white/5">
+                <div className="max-h-56 md:max-h-60 overflow-y-auto space-y-1.5 bg-fondo-principal rounded-xl p-1.5 border border-borde-sutil/70">
                   {productosDisponibles.slice(0, 20).map(p => {
                     const enCarrito = itemsCarrito.find(i => i.productoId === p.id);
                     const stockRestante = p.stockActual - (enCarrito?.cantidadVendida || 0);
@@ -339,7 +339,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           <span className="font-bold text-texto-primario truncate">{p.nombre}</span>
-                          <span className="px-2 py-0.5 rounded bg-white/5 text-texto-secundario text-xs font-medium whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded bg-superficie-hover text-texto-secundario text-xs font-medium whitespace-nowrap">
                             Stock: {stockRestante}
                           </span>
                         </div>
@@ -379,15 +379,15 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                 </div>
 
                 {itemsCarrito.length === 0 ? (
-                  <div className="p-8 rounded-xl border border-dashed border-white/10 text-center">
+                  <div className="p-8 rounded-xl border border-dashed border-borde-sutil text-center">
                     <ShoppingCart size={32} className="mx-auto text-texto-secundario/40 mb-2" />
                     <p className="text-sm font-medium text-texto-secundario">Agrega productos al carrito para continuar.</p>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto rounded-xl border border-white/10 bg-fondo-principal/60 max-h-72 md:max-h-80 overflow-y-auto">
+                  <div className="overflow-x-auto rounded-xl border border-borde-sutil bg-fondo-principal/60 max-h-72 md:max-h-80 overflow-y-auto">
                     <table className="w-full text-left border-collapse text-sm">
                       <thead>
-                        <tr className="border-b border-white/10 bg-white/5 text-xs uppercase font-bold text-texto-secundario tracking-wider">
+                        <tr className="border-b border-borde-sutil bg-superficie-hover text-xs uppercase font-bold text-texto-secundario tracking-wider">
                           <th className="p-3">Producto</th>
                           <th className="p-3 text-center w-32">Cant.</th>
                           <th className="p-3 w-28 text-right">Precio ($)</th>
@@ -395,9 +395,9 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                           <th className="p-3 text-center w-12"></th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/5">
+                      <tbody className="divide-y divide-borde-sutil/70">
                         {itemsCarrito.map(item => (
-                          <tr key={item.productoId} className="hover:bg-white/5 transition-colors">
+                          <tr key={item.productoId} className="hover:bg-superficie-hover transition-colors">
                             {/* Producto */}
                             <td className="p-3 min-w-0">
                               <p className="font-bold text-texto-primario truncate max-w-[160px] sm:max-w-[240px] text-sm">{item.nombreProducto}</p>
@@ -406,12 +406,12 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
 
                             {/* Cantidad (- 1 +) */}
                             <td className="p-3 text-center">
-                              <div className="inline-flex items-center gap-1.5 bg-white/5 rounded-lg p-1">
+                              <div className="inline-flex items-center gap-1.5 bg-superficie-hover rounded-lg p-1">
                                 <button
                                   type="button"
                                   onClick={() => actualizarCantidad(item.productoId, item.cantidadVendida - 1)}
                                   disabled={item.cantidadVendida <= 1}
-                                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-white/10 text-texto-secundario disabled:opacity-30 transition-colors"
+                                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-superficie-hover text-texto-secundario disabled:opacity-30 transition-colors"
                                 >
                                   <Minus size={12} />
                                 </button>
@@ -422,7 +422,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                                   type="button"
                                   onClick={() => actualizarCantidad(item.productoId, item.cantidadVendida + 1)}
                                   disabled={item.cantidadVendida >= item.stockDisponible}
-                                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-white/10 text-texto-secundario disabled:opacity-30 transition-colors"
+                                  className="w-6 h-6 rounded flex items-center justify-center hover:bg-superficie-hover text-texto-secundario disabled:opacity-30 transition-colors"
                                 >
                                   <Plus size={12} />
                                 </button>
@@ -438,7 +438,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                                 value={item.precioVentaFinal || ''}
                                 onChange={e => actualizarPrecio(item.productoId, e.target.value)}
                                 placeholder={`$${item.precioSugerido.toFixed(2)}`}
-                                className="w-full bg-fondo-principal border border-white/10 rounded-md px-2.5 py-1.5 text-sm font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-exito text-right"
+                                className="w-full bg-fondo-principal border border-borde-sutil rounded-md px-2.5 py-1.5 text-sm font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-exito text-right"
                               />
                             </td>
 

@@ -13,7 +13,7 @@ export default function HistorialCierres({ cierres, onSeleccionar }: Props) {
   if (cierres.length === 0) {
     return (
       <div className="glass-panel p-8 rounded-2xl flex flex-col items-center justify-center text-center">
-        <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-texto-secundario mb-3">
+        <div className="w-12 h-12 rounded-full bg-superficie-hover flex items-center justify-center text-texto-secundario mb-3">
           <ClipboardCheck size={22} />
         </div>
         <h4 className="text-sm font-bold text-texto-primario">Sin cierres registrados</h4>
@@ -29,7 +29,7 @@ export default function HistorialCierres({ cierres, onSeleccionar }: Props) {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-white/10 bg-white/5">
+            <tr className="border-b border-borde-sutil bg-superficie-hover">
               <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Semana</th>
               <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Fecha de Cierre</th>
               <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Registrado Por</th>
@@ -39,11 +39,11 @@ export default function HistorialCierres({ cierres, onSeleccionar }: Props) {
               <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider text-right">Acción</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-borde-sutil/70">
             {cierres.map(cierre => {
               const diferencia = cierre.totalDiferencia ?? 0;
               return (
-                <tr key={cierre.id} className="hover:bg-white/5 transition-colors">
+                <tr key={cierre.id} className="hover:bg-superficie-hover transition-colors">
                   <td className="p-4 text-sm font-bold text-texto-primario">
                     {formatearSemana(new Date(cierre.semanaInicio))}
                   </td>

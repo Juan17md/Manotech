@@ -4,29 +4,39 @@ import { createContext, useContext, useState, useSyncExternalStore } from 'react
 
 type Theme = 'dark' | 'light';
 
+const CLAVE_TEMA = 'manotech_theme';
+
+// El modo claro es el predeterminado del sistema MANOTECH.
+// Solo se respeta "dark" si el usuario lo eligió explícitamente.
+function aplicarTemaEnDocumento(tema: Theme) {
+  const raiz = document.documentElement;
+  raiz.classList.toggle('light', tema === 'light');
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', tema === 'light' ? '#FAF8FE' : '#13071E');
+}
+
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Inicialización perezosa del tema (lee localStorage y preferencia del sistema
-  // solo en el cliente, evitando el setState dentro de un useEffect).
+  // Inicialización perezosa del tema (lee localStorage solo en el cliente,
+  // evitando el setState dentro de un useEffect).
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'dark';
+    if (typeof window === 'undefined') return 'light';
 
-    const savedTheme = localStorage.getItem('pz_theme') as Theme | null;
-    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    const temaInicial: Theme = savedTheme ?? (systemPrefersLight ? 'light' : 'dark');
+    const temaGuardado = localStorage.getItem(CLAVE_TEMA);
+    const temaInicial: Theme = temaGuardado === 'dark' ? 'dark' : 'light';
 
-    if (temaInicial === 'light') document.documentElement.classList.add('light');
+    aplicarTemaEnDocumento(temaInicial);
 
     return temaInicial;
   });
@@ -40,14 +50,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = () => {
     setTheme(prev => {
-      const newTheme = prev === 'dark' ? 'light' : 'dark';
-      if (newTheme === 'light') {
-        document.documentElement.classList.add('light');
-      } else {
-        document.documentElement.classList.remove('light');
-      }
-      localStorage.setItem('pz_theme', newTheme);
-      return newTheme;
+      const nuevoTema: Theme = prev === 'dark' ? 'light' : 'dark';
+      aplicarTemaEnDocumento(nuevoTema);
+      localStorage.setItem(CLAVE_TEMA, nuevoTema);
+      return nuevoTema;
     });
   };
 

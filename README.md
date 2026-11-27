@@ -102,7 +102,7 @@ La identidad visual se deriva directamente del logo de la marca.
 | Aviso | `#FF9F43` | Stock crítico |
 | Peligro | `#FF4949` | Gastos, errores y stock agotado |
 
-Los tokens viven en `src/app/globals.css` y se consumen como utilidades de Tailwind (`bg-superficie`, `text-acento-primario`, etc.). El modo claro redefine únicamente los valores, manteniendo la misma semántica.
+Los tokens viven en `src/app/globals.css` y se consumen como utilidades de Tailwind (`bg-superficie`, `text-acento-primario`, etc.). El **modo claro es el predeterminado** bajo el concepto *Cerámica Violeta*, con el violeta del logo (`#7D44DA`) como acento de detalles; el modo oscuro se conserva como alternativa.
 
 ---
 

@@ -155,7 +155,7 @@ export default function Select({
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         onKeyDown={handleKeyDown}
-        className={`w-full flex items-center gap-2 bg-fondo-principal border rounded-xl px-4 py-3 text-left transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed ${focus && open ? accentBorderMap[accentColor] : 'border-white/10 hover:border-white/20'} ${icon ? 'pl-11' : ''}`}
+        className={`w-full flex items-center gap-2 bg-fondo-principal border rounded-xl px-4 py-3 text-left transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed ${focus && open ? accentBorderMap[accentColor] : 'border-borde-sutil hover:border-acento-primario/30'} ${icon ? 'pl-11' : ''}`}
       >
         {icon && (
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-texto-secundario">
@@ -175,7 +175,7 @@ export default function Select({
         <div
           ref={listRef}
           style={dropdownStyle}
-          className="z-[100] min-w-[160px] bg-superficie border border-white/10 rounded-xl shadow-2xl backdrop-blur-2xl animate-in fade-in duration-150"
+          className="z-[100] min-w-[160px] bg-superficie border border-borde-sutil rounded-xl shadow-2xl backdrop-blur-2xl animate-in fade-in duration-150"
         >
           {options.length === 0 && (
             <div className="px-4 py-3 text-sm text-texto-secundario text-center">Sin opciones</div>
@@ -188,11 +188,11 @@ export default function Select({
                 type="button"
                 onMouseDown={() => handleSelect(opt)}
                 className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left transition-colors
-                  ${isSelected ? `${accentActiveMap[accentColor]} font-semibold` : 'text-texto-primario hover:bg-white/5'}
-                  ${i > 0 ? 'border-t border-white/5' : ''}`}
+                  ${isSelected ? `${accentActiveMap[accentColor]} font-semibold` : 'text-texto-primario hover:bg-superficie-hover'}
+                  ${i > 0 ? 'border-t border-borde-sutil/70' : ''}`}
               >
                 <span className={`w-4 h-4 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors
-                  ${isSelected ? `${accentBorderMap[accentColor].split(' ')[0]} bg-current` : 'border-white/20'}`}
+                  ${isSelected ? `${accentBorderMap[accentColor].split(' ')[0]} bg-current` : 'border-borde-sutil'}`}
                 >
                   {isSelected && <Check size={10} className="text-fondo-principal" />}
                 </span>

@@ -148,7 +148,7 @@ export default function FinanzasPage() {
         <button
           onClick={semanaAnterior}
           disabled={esInicioDelHistorial}
-          className="p-2 rounded-lg hover:bg-white/5 text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-2 rounded-lg hover:bg-superficie-hover text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Semana anterior"
         >
           <ChevronLeft size={20} />
@@ -159,7 +159,7 @@ export default function FinanzasPage() {
             <span className="text-[10px] font-bold text-exito bg-exito/10 px-2 py-0.5 rounded-md tracking-wide">Semana Actual</span>
           )}
           {esInicioDelHistorial && (
-            <span className="text-[10px] font-bold text-texto-secundario bg-white/5 border border-white/10 px-2 py-0.5 rounded-md tracking-wide">Inicio del historial</span>
+            <span className="text-[10px] font-bold text-texto-secundario bg-superficie-hover border border-borde-sutil px-2 py-0.5 rounded-md tracking-wide">Inicio del historial</span>
           )}
           <span className="font-plus-jakarta font-bold text-base text-texto-primario">{formatearSemana(semanaSeleccionada)}</span>
           {noEsSemanaActual && (
@@ -175,7 +175,7 @@ export default function FinanzasPage() {
         <button
           onClick={semanaSiguiente}
           disabled={esSemanaActual(semanaSeleccionada)}
-          className="p-2 rounded-lg hover:bg-white/5 text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-2 rounded-lg hover:bg-superficie-hover text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Semana siguiente"
         >
           <ChevronRight size={20} />
@@ -261,7 +261,7 @@ export default function FinanzasPage() {
 
         {finanzas.gastosDeSemana.length === 0 ? (
           <div className="glass-panel p-8 rounded-2xl flex flex-col items-center justify-center text-center">
-            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-texto-secundario mb-3">
+            <div className="w-12 h-12 rounded-full bg-superficie-hover flex items-center justify-center text-texto-secundario mb-3">
               <Receipt size={22} />
             </div>
             <h4 className="text-sm font-bold text-texto-primario">Sin gastos registrados</h4>
@@ -272,16 +272,16 @@ export default function FinanzasPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-white/10 bg-white/5">
+                  <tr className="border-b border-borde-sutil bg-superficie-hover">
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Descripción</th>
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Categoría</th>
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Fecha</th>
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider text-right">Monto</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5">
+                <tbody className="divide-y divide-borde-sutil/70">
                   {finanzas.gastosDeSemana.map(gasto => (
-                    <tr key={gasto.id} className="hover:bg-white/5 transition-colors">
+                    <tr key={gasto.id} className="hover:bg-superficie-hover transition-colors">
                       <td className="p-4 text-sm font-bold text-texto-primario">{gasto.descripcion}</td>
                       <td className="p-4">
                         <span className="inline-flex px-2 py-0.5 rounded bg-peligro/10 text-peligro text-xs border border-peligro/20">
@@ -298,7 +298,7 @@ export default function FinanzasPage() {
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t border-white/10 bg-white/5">
+                  <tr className="border-t border-borde-sutil bg-superficie-hover">
                     <td colSpan={3} className="p-4 text-sm font-bold text-texto-primario text-right">Total Egresos</td>
                     <td className="p-4 text-sm font-space-grotesk font-bold text-peligro text-right">
                       ${finanzas.totalGastos.toFixed(2)}

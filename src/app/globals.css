@@ -3,10 +3,16 @@
 @theme {
   --color-fondo-principal: var(--color-fondo-principal);
   --color-superficie: var(--color-superficie);
+  --color-superficie-elevada: var(--color-superficie-elevada);
   --color-texto-primario: var(--color-texto-primario);
   --color-texto-secundario: var(--color-texto-secundario);
 
   --color-acento-primario: var(--color-acento-primario);
+  --color-acento-hover: var(--color-acento-hover);
+  --color-acento-logo: var(--color-acento-logo);
+  --color-acento-tenue: var(--color-acento-tenue);
+  --color-superficie-hover: var(--color-superficie-hover);
+  --color-borde-sutil: var(--color-borde-sutil);
   --color-acento-aviso: var(--color-acento-aviso);
   --color-exito: var(--color-exito);
   --color-peligro: var(--color-peligro);
@@ -17,45 +23,61 @@
 }
 
 :root {
-  /* Paleta Violeta MANOTECH (Design System Maestro) */
-  --color-fondo-principal: #1D0D2A; /* Violeta Profundo - Fondo de toda la app */
-  --color-superficie: #2A1440; /* Violeta Superficie - Tarjetas, modales y barras */
-  --color-texto-primario: #F5F0FA; /* Blanco Violeta - Títulos, precios y datos clave */
-  --color-texto-secundario: #B9A9CC; /* Lila Suave - Descripciones, marcas y fechas */
+  /* Paleta Obsidian Tech & Violet MANOTECH */
+  --color-fondo-principal: #13071E; /* Violeta Obsidiana Profundo */
+  --color-superficie: #1E0C2E; /* Violeta de Superficie */
+  --color-superficie-elevada: #28123D; /* Violeta Elevado para tarjetas activas */
+  --color-texto-primario: #F7F3FC; /* Blanco con matiz lila ultra-limpio */
+  --color-texto-secundario: #B5A4CB; /* Lila suave de alto contraste */
 
   /* Acentos de marca y estados semánticos */
-  --color-acento-primario: #7D44DA; /* Violeta MANOTECH - Enlaces y botones de acción */
-  --color-acento-aviso: #FF9F43; /* Ámbar Aviso - Stock crítico e indicadores */
-  --color-exito: #10B981; /* Esmeralda Éxito - Ingresos y ganancias */
-  --color-peligro: #FF4949; /* Coral Peligro - Gastos, errores y stock en 0 */
+  --color-acento-primario: #7D44DA; /* Violeta MANOTECH */
+  --color-acento-hover: #9153F2; /* Violeta Eléctrico Hover */
+  --color-acento-logo: #7D44DA; /* Violeta exacto del logo */
+  --color-acento-tenue: rgba(125, 68, 218, 0.12); /* Velo violeta para detalles */
+  --color-superficie-hover: rgba(255, 255, 255, 0.06);
+  --color-borde-sutil: rgba(255, 255, 255, 0.10);
+  --color-acento-aviso: #FF9F43; /* Ámbar Aviso */
+  --color-exito: #10B981; /* Esmeralda Éxito */
+  --color-peligro: #FF4949; /* Coral Peligro */
 
-  --glass-bg: rgba(42, 20, 64, 0.45); /* Fondo translúcido Violeta Superficie */
-  --glass-border: rgba(255, 255, 255, 0.08); /* Borde súper sutil */
-  --glass-shadow: 0 8px 32px 0 rgba(10, 4, 16, 0.45); /* Sombra profunda para levantar el panel */
+  --glass-bg: rgba(30, 12, 46, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-top: rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 12px 36px -8px rgba(7, 2, 12, 0.65);
 
   background-color: var(--color-fondo-principal);
   color: var(--color-texto-primario);
+  color-scheme: dark;
 }
 
 .light {
-  /* Modo Claro (Premium Clean SaaS) */
-  --color-fondo-principal: #F7F4FB; /* Lila 50 - Fondo blanquecino lujoso */
-  --color-superficie: #FFFFFF; /* Paneles en blanco puro */
-  --color-texto-primario: #1B0F29; /* Violeta 950 - Texto oscuro súper elegante */
-  --color-texto-secundario: #5B4A6B; /* Lila 700 - Texto secundario perfecto */
+  /* Modo Claro: Cerámica Violeta (predeterminado) */
+  --color-fondo-principal: #FAF8FE; /* Blanco porcelana con tinte lila */
+  --color-superficie: #FFFFFF; /* Paneles en blanco nítido */
+  --color-superficie-elevada: #F3EBFC; /* Superficie lila suave */
+  --color-texto-primario: #1B0D2B; /* Violeta 950 - Máximo contraste */
+  --color-texto-secundario: #5E4E70; /* Lila 700 - Legibilidad WCAG AAA */
 
-  /* Acentos adaptados para excelente contraste (WCAG AA+) */
-  --color-acento-primario: #6D28D9; /* Violeta profundo para legibilidad sobre claro */
-  --color-acento-aviso: #D97706; /* Amber 600 */
-  --color-exito: #059669; /* Emerald 600 */
-  --color-peligro: #DC2626; /* Red 600 */
+  /* El violeta del logo pasa a ser el acento visible de los detalles */
+  --color-acento-primario: #7D44DA; /* 5.66:1 sobre blanco (AA) */
+  --color-acento-hover: #6D28D9; /* Hover más profundo para texto */
+  --color-acento-logo: #7D44DA;
+  --color-acento-tenue: rgba(125, 68, 218, 0.09);
+  --color-superficie-hover: rgba(125, 68, 218, 0.07);
+  --color-borde-sutil: rgba(125, 68, 218, 0.16);
+  --color-acento-aviso: #D97706;
+  --color-exito: #059669;
+  --color-peligro: #DC2626;
 
-  --glass-bg: rgba(255, 255, 255, 0.75); /* Fondo translúcido blanco */
-  --glass-border: rgba(27, 15, 41, 0.08); /* Borde de contraste mínimo oscuro */
-  --glass-shadow: 0 8px 32px 0 rgba(27, 15, 41, 0.08); /* Sombra muy sutil */
+  --glass-bg: rgba(255, 255, 255, 0.86);
+  --glass-border: rgba(125, 68, 218, 0.14);
+  --glass-border-top: rgba(255, 255, 255, 0.9);
+  --glass-shadow: 0 10px 30px -10px rgba(125, 68, 218, 0.18);
 
   background-color: var(--color-fondo-principal);
   color: var(--color-texto-primario);
+  color-scheme: light;
 }
 
 body {
@@ -64,24 +86,57 @@ body {
   color: var(--color-texto-primario);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Un sutil mesh gradient en el fondo para evitar que se vea totalmente plano, pero que sigue la elegancia SaaS */
-  background-image: radial-gradient(circle at 50% -20%, rgba(125, 68, 218, 0.10) 0%, transparent 60%);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Malla atmosférica tech con doble foco luminoso sutil */
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(125, 68, 218, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 85% 110%, rgba(145, 83, 242, 0.08) 0%, transparent 50%);
   background-attachment: fixed;
 }
 
 .light body {
-  background-image: radial-gradient(circle at 50% -20%, rgba(109, 40, 217, 0.05) 0%, transparent 60%);
+  background-image:
+    radial-gradient(circle at 12% -8%, rgba(125, 68, 218, 0.10) 0%, transparent 42%),
+    radial-gradient(circle at 88% 108%, rgba(145, 83, 242, 0.07) 0%, transparent 48%);
 }
 
-/* Premium SaaS Glassmorphism Panel */
+/* Glassmorphism Refinado */
 @utility glass-panel {
   background-color: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Panel Tech Obsidian con Highlight Rim Superior */
+@utility panel-tech {
+  background: linear-gradient(155deg, rgba(32, 13, 50, 0.82) 0%, rgba(20, 8, 31, 0.92) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: 0 12px 32px -8px rgba(5, 1, 10, 0.65), 0 0 1px 1px rgba(125, 68, 218, 0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .panel-tech {
+  background: linear-gradient(155deg, #FFFFFF 0%, #FBF8FF 100%);
+  border-top: 1px solid rgba(125, 68, 218, 0.22);
+  border-left: 1px solid rgba(125, 68, 218, 0.10);
+  border-right: 1px solid rgba(125, 68, 218, 0.10);
+  border-bottom: 1px solid rgba(125, 68, 218, 0.14);
+  box-shadow: 0 10px 25px -10px rgba(125, 68, 218, 0.16), 0 1px 3px rgba(27, 13, 43, 0.03);
+}
+
+/* Botón primario de alta tecnología MANOTECH */
+@utility boton-primario {
+  background: linear-gradient(135deg, #7D44DA 0%, #9153F2 100%);
+  box-shadow: 0 4px 14px 0 rgba(125, 68, 218, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @utility text-glow-primario {
@@ -90,4 +145,13 @@ body {
 
 @utility box-glow-primario {
   box-shadow: 0 0 24px rgba(125, 68, 218, 0.20);
+}
+
+/* En modo claro el brillo se sustituye por una sombra violeta limpia */
+.light .text-glow-primario {
+  text-shadow: none;
+}
+
+.light .box-glow-primario {
+  box-shadow: 0 0 0 1px rgba(125, 68, 218, 0.10), 0 10px 24px -14px rgba(125, 68, 218, 0.45);
 }

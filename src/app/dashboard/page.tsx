@@ -80,7 +80,7 @@ export default function DashboardPage() {
         {/* Theme Toggle (Mobile only — desktop uses Sidebar) */}
         <button 
           onClick={toggleTheme}
-          className="md:hidden p-3 rounded-full glass-panel text-texto-primario hover:bg-white/10 transition-colors shrink-0"
+          className="md:hidden p-3 rounded-full glass-panel text-texto-primario hover:bg-superficie-hover transition-colors shrink-0"
           aria-label="Cambiar tema"
         >
           {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
@@ -90,7 +90,7 @@ export default function DashboardPage() {
       {/* Grid de KPIs Básicos (Bento-lite) */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
         
-        <div className="col-span-2 md:col-span-1 glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="col-span-2 md:col-span-1 glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Ventas del Día</p>
             <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${metricas.ingresosHoy.toFixed(2)}</h3>
@@ -105,7 +105,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Ganancia Neta Hoy</p>
             <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${metricas.gananciaHoy.toFixed(2)}</h3>
@@ -115,7 +115,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Transacciones Hoy</p>
             <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1">{metricas.transaccionesHoy}</h3>
@@ -125,7 +125,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Equipos Hoy</p>
             <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1">{metricas.equiposHoy}</h3>
@@ -135,7 +135,7 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <Link href="/inventario" className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between group hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300 cursor-pointer border border-transparent hover:border-peligro/20">
+        <Link href="/inventario" className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between group hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300 cursor-pointer border border-transparent hover:border-peligro/20">
           <div className="min-w-0">
             <p className={`text-xs sm:text-sm font-medium ${metricas.alertasStock > 0 ? 'text-peligro' : 'text-texto-secundario'}`}>
               Alertas Stock
@@ -144,13 +144,13 @@ export default function DashboardPage() {
               {metricas.alertasStock}
             </h3>
           </div>
-          <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-colors shrink-0 ml-3 ${metricas.alertasStock > 0 ? 'bg-peligro/10 text-peligro' : 'bg-white/5 text-texto-secundario'}`}>
+          <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-colors shrink-0 ml-3 ${metricas.alertasStock > 0 ? 'bg-peligro/10 text-peligro' : 'bg-superficie-hover text-texto-secundario'}`}>
             <PackageOpen size={22} />
           </div>
         </Link>
 
         {/* Widget BCV — Tasa del Dólar Oficial */}
-        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 transition-all duration-300 border border-acento-primario/10">
+        <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300 border border-acento-primario/10">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Tasa BCV (Dólar Oficial)</p>
             {tasaBCV !== null && tasaBCV > 0 ? (
@@ -193,7 +193,7 @@ export default function DashboardPage() {
           {/* Registrar Teléfono */}
           <button 
             onClick={() => { setProductoActiveTab('Telefonos'); setModalProductoOpen(true); }}
-            className="py-4 px-4 rounded-2xl glass-panel text-texto-primario font-bold active:scale-95 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 group min-h-[110px] border border-white/5 hover:border-acento-primario/20 cursor-pointer"
+            className="py-4 px-4 rounded-2xl glass-panel text-texto-primario font-bold active:scale-95 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 group min-h-[110px] border border-borde-sutil/70 hover:border-acento-primario/20 cursor-pointer"
           >
             <Smartphone size={24} className="text-texto-secundario group-hover:text-acento-primario transition-colors" />
             <span className="tracking-wide text-xs sm:text-sm text-center">Registrar Teléfono</span>
@@ -202,7 +202,7 @@ export default function DashboardPage() {
           {/* Registrar Producto */}
           <button 
             onClick={() => { setProductoActiveTab('Accesorios'); setModalProductoOpen(true); }}
-            className="py-4 px-4 rounded-2xl glass-panel text-texto-primario font-bold active:scale-95 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 group min-h-[110px] border border-white/5 hover:border-acento-primario/20 cursor-pointer"
+            className="py-4 px-4 rounded-2xl glass-panel text-texto-primario font-bold active:scale-95 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 group min-h-[110px] border border-borde-sutil/70 hover:border-acento-primario/20 cursor-pointer"
           >
             <PackageOpen size={24} className="text-texto-secundario group-hover:text-acento-primario transition-colors" />
             <span className="tracking-wide text-xs sm:text-sm text-center">Registrar Producto</span>
@@ -211,7 +211,7 @@ export default function DashboardPage() {
           {/* Registrar Gasto */}
           <button 
             onClick={() => setModalGastoOpen(true)}
-            className="py-4 px-4 rounded-2xl glass-panel text-texto-primario font-bold active:scale-95 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 group min-h-[110px] border border-white/5 hover:border-peligro/20 cursor-pointer"
+            className="py-4 px-4 rounded-2xl glass-panel text-texto-primario font-bold active:scale-95 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-2 group min-h-[110px] border border-borde-sutil/70 hover:border-peligro/20 cursor-pointer"
           >
             <Receipt size={24} className="text-texto-secundario group-hover:text-peligro transition-colors" />
             <span className="tracking-wide text-xs sm:text-sm text-center">Registrar Gasto</span>
@@ -231,7 +231,7 @@ export default function DashboardPage() {
 
         {ultimasVentas.length === 0 ? (
           <div className="glass-panel p-8 rounded-2xl flex flex-col items-center justify-center text-center">
-            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-texto-secundario mb-3">
+            <div className="w-12 h-12 rounded-full bg-superficie-hover flex items-center justify-center text-texto-secundario mb-3">
               <ReceiptText size={22} />
             </div>
             <h4 className="text-sm font-bold text-texto-primario">No hay ventas registradas</h4>
@@ -244,7 +244,7 @@ export default function DashboardPage() {
               {ultimasVentas.map((venta) => (
                 <div key={venta.id} className={`glass-panel p-3.5 rounded-xl flex items-center justify-between gap-3 ${venta.anulada ? 'opacity-55' : ''}`}>
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${venta.anulada ? 'bg-white/5 text-texto-secundario' : 'bg-exito/10 text-exito'}`}>
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${venta.anulada ? 'bg-superficie-hover text-texto-secundario' : 'bg-exito/10 text-exito'}`}>
                       <ReceiptText size={16} />
                     </div>
                     <div className="min-w-0">
@@ -267,7 +267,7 @@ export default function DashboardPage() {
                     </div>
                     <button
                       onClick={() => { setSelectedVentaDetalle(venta); setModalDetalleOpen(true); }}
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-texto-primario transition-colors cursor-pointer shrink-0 flex items-center justify-center"
+                      className="p-2 rounded-lg bg-superficie-hover hover:bg-superficie-hover text-texto-primario transition-colors cursor-pointer shrink-0 flex items-center justify-center"
                       title="Ver detalles"
                     >
                       <Eye size={14} />
@@ -291,7 +291,7 @@ export default function DashboardPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 bg-white/5">
+                    <tr className="border-b border-borde-sutil bg-superficie-hover">
                       <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Fecha / Hora</th>
                       <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Producto</th>
                       <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Método de Pago</th>
@@ -300,9 +300,9 @@ export default function DashboardPage() {
                       <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider text-center">Acción</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-borde-sutil/70">
                     {ultimasVentas.map((venta) => (
-                      <tr key={venta.id} className={`hover:bg-white/5 transition-colors ${venta.anulada ? 'opacity-55' : ''}`}>
+                      <tr key={venta.id} className={`hover:bg-superficie-hover transition-colors ${venta.anulada ? 'opacity-55' : ''}`}>
                         <td className="p-4 text-xs text-texto-secundario font-medium">
                           {formatearFecha(venta.fecha)}
                         </td>
@@ -320,7 +320,7 @@ export default function DashboardPage() {
                           )}
                         </td>
                         <td className="p-4 text-xs text-texto-primario">
-                          <span className="inline-flex px-2 py-0.5 rounded bg-white/5 border border-white/10">
+                          <span className="inline-flex px-2 py-0.5 rounded bg-superficie-hover border border-borde-sutil">
                             {venta.metodoPago}
                           </span>
                         </td>
@@ -334,7 +334,7 @@ export default function DashboardPage() {
                           <div className="flex items-center justify-center gap-2">
                             <button
                               onClick={() => { setSelectedVentaDetalle(venta); setModalDetalleOpen(true); }}
-                              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-texto-primario transition-colors cursor-pointer inline-flex items-center justify-center"
+                              className="p-2 rounded-lg bg-superficie-hover hover:bg-superficie-hover text-texto-primario transition-colors cursor-pointer inline-flex items-center justify-center"
                               title="Ver detalles"
                             >
                               <Eye size={14} />

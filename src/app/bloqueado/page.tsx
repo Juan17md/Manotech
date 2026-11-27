@@ -22,7 +22,7 @@ export default function BloqueadoPage() {
         </p>
 
         <div className="space-y-3 text-left">
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-superficie-hover border border-borde-sutil flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-acento-primario/10 flex items-center justify-center shrink-0">
               <Phone size={18} className="text-acento-primario" />
             </div>
@@ -32,7 +32,7 @@ export default function BloqueadoPage() {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-superficie-hover border border-borde-sutil flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-acento-primario/10 flex items-center justify-center shrink-0">
               <Mail size={18} className="text-acento-primario" />
             </div>
@@ -42,7 +42,7 @@ export default function BloqueadoPage() {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3">
+          <div className="p-4 rounded-xl bg-superficie-hover border border-borde-sutil flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg bg-acento-primario/10 flex items-center justify-center shrink-0">
               <MessageSquare size={18} className="text-acento-primario" />
             </div>

@@ -42,10 +42,10 @@ export default function LoginPage() {
 
       {/* Círculos luminosos ambientales para profundidad SaaS */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-acento-primario/10 blur-[80px] sm:blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] bg-blue-600/10 blur-[60px] sm:blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] bg-acento-hover/10 blur-[60px] sm:blur-[100px] rounded-full pointer-events-none"></div>
 
       {/* Columna izquierda: marca (pantalla completa) */}
-      <div className="hidden lg:flex flex-col items-center justify-center gap-6 p-10 relative bg-gradient-to-br from-acento-primario/10 via-transparent to-blue-600/10 border-r border-[var(--glass-border)]">
+      <div className="hidden lg:flex flex-col items-center justify-center gap-6 p-10 relative bg-gradient-to-br from-acento-logo/10 via-transparent to-acento-hover/10 border-r border-[var(--glass-border)]">
         <img
           src="/icono_sin_fondo.PNG"
           alt="MANOTECH Logo"

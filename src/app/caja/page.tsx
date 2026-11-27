@@ -178,7 +178,7 @@ export default function CajaPage() {
         <button
           onClick={semanaAnterior}
           disabled={esInicioDelHistorial}
-          className="p-2 rounded-lg hover:bg-white/5 text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-2 rounded-lg hover:bg-superficie-hover text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Semana anterior"
         >
           <ChevronLeft size={20} />
@@ -189,7 +189,7 @@ export default function CajaPage() {
             <span className="text-[10px] font-bold text-exito bg-exito/10 px-2 py-0.5 rounded-md tracking-wide">Semana Actual</span>
           )}
           {esInicioDelHistorial && (
-            <span className="text-[10px] font-bold text-texto-secundario bg-white/5 border border-white/10 px-2 py-0.5 rounded-md tracking-wide">Inicio del historial</span>
+            <span className="text-[10px] font-bold text-texto-secundario bg-superficie-hover border border-borde-sutil px-2 py-0.5 rounded-md tracking-wide">Inicio del historial</span>
           )}
           <span className="font-plus-jakarta font-bold text-base text-texto-primario">{formatearSemana(semanaSeleccionada)}</span>
           {noEsSemanaActual && (
@@ -205,7 +205,7 @@ export default function CajaPage() {
         <button
           onClick={semanaSiguiente}
           disabled={esSemanaActual(semanaSeleccionada)}
-          className="p-2 rounded-lg hover:bg-white/5 text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="p-2 rounded-lg hover:bg-superficie-hover text-texto-secundario hover:text-texto-primario transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Semana siguiente"
         >
           <ChevronRight size={20} />
@@ -322,7 +322,7 @@ export default function CajaPage() {
               className={`px-4 sm:px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${
                 modoSaldo === 'total'
                   ? 'bg-acento-primario text-white shadow-md shadow-acento-primario/20'
-                  : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+                  : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
               }`}
             >
               Total
@@ -332,7 +332,7 @@ export default function CajaPage() {
               className={`px-4 sm:px-5 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${
                 modoSaldo === 'semanal'
                   ? 'bg-acento-primario text-white shadow-md shadow-acento-primario/20'
-                  : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+                  : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
               }`}
             >
               Semanal
@@ -396,7 +396,7 @@ export default function CajaPage() {
 
         {retirosDeSemana.length === 0 ? (
           <div className="glass-panel p-8 rounded-2xl flex flex-col items-center justify-center text-center">
-            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-texto-secundario mb-3">
+            <div className="w-12 h-12 rounded-full bg-superficie-hover flex items-center justify-center text-texto-secundario mb-3">
               <Wallet size={22} />
             </div>
             <h4 className="text-sm font-bold text-texto-primario">Sin retiros registrados</h4>
@@ -407,7 +407,7 @@ export default function CajaPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-white/10 bg-white/5">
+                  <tr className="border-b border-borde-sutil bg-superficie-hover">
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Método</th>
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Concepto</th>
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider">Fecha</th>
@@ -415,9 +415,9 @@ export default function CajaPage() {
                     <th className="p-4 font-medium text-xs text-texto-secundario uppercase tracking-wider text-right">Acción</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5">
+                <tbody className="divide-y divide-borde-sutil/70">
                   {retirosDeSemana.map(retiro => (
-                    <tr key={retiro.id} className="hover:bg-white/5 transition-colors">
+                    <tr key={retiro.id} className="hover:bg-superficie-hover transition-colors">
                       <td className="p-4">
                         <span className="flex items-center gap-2 text-sm font-bold text-texto-primario">
                           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: METODO_COLORS[retiro.metodoPago] }} />
@@ -444,7 +444,7 @@ export default function CajaPage() {
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="border-t border-white/10 bg-white/5">
+                  <tr className="border-t border-borde-sutil bg-superficie-hover">
                     <td colSpan={3} className="p-4 text-sm font-bold text-texto-primario text-right">Total Retiros</td>
                     <td className="p-4 text-sm font-space-grotesk font-bold text-acento-aviso text-right">
                       -${resumen.totalRetiros.toFixed(2)}

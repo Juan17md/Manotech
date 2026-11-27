@@ -156,7 +156,7 @@ export default function HistorialPage() {
           className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
             activeTab === 'ventas' 
               ? 'bg-exito text-white shadow-md' 
-              : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+              : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
           }`}
         >
           <ShoppingCart size={16} />
@@ -167,7 +167,7 @@ export default function HistorialPage() {
           className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
             activeTab === 'gastos' 
               ? 'bg-peligro text-white shadow-md' 
-              : 'text-texto-secundario hover:text-texto-primario hover:bg-white/5'
+              : 'text-texto-secundario hover:text-texto-primario hover:bg-superficie-hover'
           }`}
         >
           <Receipt size={16} />
@@ -186,7 +186,7 @@ export default function HistorialPage() {
             placeholder={activeTab === 'ventas' ? "Buscar por producto o método de pago..." : "Buscar por descripción o categoría..."} 
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full bg-transparent text-texto-primario pl-11 pr-4 py-3 min-h-[44px] rounded-lg focus:outline-none focus:bg-white/5 transition-colors text-sm sm:text-base"
+            className="w-full bg-transparent text-texto-primario pl-11 pr-4 py-3 min-h-[44px] rounded-lg focus:outline-none focus:bg-superficie-hover transition-colors text-sm sm:text-base"
           />
         </div>
       </div>
@@ -196,7 +196,7 @@ export default function HistorialPage() {
         <>
           {ventas.length === 0 ? (
             <div className="glass-panel p-8 rounded-2xl flex flex-col items-center justify-center text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 flex items-center justify-center text-texto-secundario mb-4">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-superficie-hover flex items-center justify-center text-texto-secundario mb-4">
                 <ReceiptText size={28} />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-texto-primario">No hay ventas registradas</h3>
@@ -210,7 +210,7 @@ export default function HistorialPage() {
                   <div key={venta.id} className={`glass-panel p-4 rounded-xl flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 transition-all ${venta.anulada ? 'opacity-55' : ''}`}>
                     
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${venta.anulada ? 'bg-white/5 text-texto-secundario' : 'bg-exito/10 text-exito'}`}>
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${venta.anulada ? 'bg-superficie-hover text-texto-secundario' : 'bg-exito/10 text-exito'}`}>
                         <ReceiptText size={18} />
                       </div>
                       <div className="min-w-0">
@@ -229,7 +229,7 @@ export default function HistorialPage() {
 
                         {/* Información del Cliente si existe */}
                         {(venta.nombreCliente || venta.cedulaCliente || venta.telefonoCliente || venta.direccionCliente) && (
-                          <div className="mt-2 p-2 rounded-lg bg-white/5 border border-white/5 max-w-md text-[10px] sm:text-xs">
+                          <div className="mt-2 p-2 rounded-lg bg-superficie-hover border border-borde-sutil/70 max-w-md text-[10px] sm:text-xs">
                             <p className="font-bold text-texto-primario/95 mb-1 flex items-center gap-1">
                               <span>Cliente:</span>
                               <span className="font-normal text-texto-secundario">{venta.nombreCliente || 'No especificado'}</span>
@@ -237,19 +237,19 @@ export default function HistorialPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-texto-secundario">
                               {venta.cedulaCliente && (
                                 <div>
-                                  <span className="font-medium text-white/40 uppercase text-[9px] mr-1">Cédula:</span>
+                                  <span className="font-medium text-texto-secundario/80 uppercase text-[9px] mr-1">Cédula:</span>
                                   <span className="text-texto-primario/80">{venta.cedulaCliente}</span>
                                 </div>
                               )}
                               {venta.telefonoCliente && (
                                 <div>
-                                  <span className="font-medium text-white/40 uppercase text-[9px] mr-1">Teléfono:</span>
+                                  <span className="font-medium text-texto-secundario/80 uppercase text-[9px] mr-1">Teléfono:</span>
                                   <span className="text-texto-primario/80">{venta.telefonoCliente}</span>
                                 </div>
                               )}
                               {venta.direccionCliente && (
                                 <div className="col-span-1 sm:col-span-2">
-                                  <span className="font-medium text-white/40 uppercase text-[9px] mr-1">Dirección:</span>
+                                  <span className="font-medium text-texto-secundario/80 uppercase text-[9px] mr-1">Dirección:</span>
                                   <span className="text-texto-primario/80">{venta.direccionCliente}</span>
                                 </div>
                               )}
@@ -259,7 +259,7 @@ export default function HistorialPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 border-t border-white/5 sm:border-t-0 pt-2.5 sm:pt-0">
+                    <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 border-t border-borde-sutil/70 sm:border-t-0 pt-2.5 sm:pt-0">
                       <div className="text-left sm:text-right">
                         <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mb-0.5">Cantidad</p>
                         <p className="font-space-grotesk font-bold text-texto-primario text-sm sm:text-base">{obtenerCantidadTotal(venta)} und.</p>
@@ -275,7 +275,7 @@ export default function HistorialPage() {
                       <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
                         <button
                           onClick={() => { setSelectedVentaDetalle(venta); setModalDetalleOpen(true); }}
-                          className="p-2 sm:p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-texto-primario transition-colors cursor-pointer flex items-center justify-center"
+                          className="p-2 sm:p-2.5 rounded-lg bg-superficie-hover hover:bg-superficie-hover text-texto-primario transition-colors cursor-pointer flex items-center justify-center"
                           title="Ver detalles"
                         >
                           <Eye size={16} />
@@ -297,11 +297,11 @@ export default function HistorialPage() {
               </div>
 
               {/* Vista Escritorio (Tabla) */}
-              <div className="hidden md:block glass-panel rounded-xl overflow-hidden border border-white/10">
+              <div className="hidden md:block glass-panel rounded-xl overflow-hidden border border-borde-sutil">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-white/10 bg-white/5 text-[11px] font-bold uppercase tracking-wider text-texto-secundario">
+                      <tr className="border-b border-borde-sutil bg-superficie-hover text-[11px] font-bold uppercase tracking-wider text-texto-secundario">
                         <th className="py-4 px-4">Producto</th>
                         <th className="py-4 px-4">Cliente</th>
                         <th className="py-4 px-4">Fecha</th>
@@ -311,12 +311,12 @@ export default function HistorialPage() {
                         <th className="py-4 px-4 text-center">Acciones</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-sm">
+                    <tbody className="divide-y divide-borde-sutil/70 text-sm">
                       {ventasPaginadas.map((venta) => (
                         <tr key={venta.id} className={`hover:bg-white/[0.03] transition-colors ${venta.anulada ? 'opacity-50' : ''}`}>
                           <td className="py-3.5 px-4">
                             <div className="flex items-center gap-3">
-                              <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${venta.anulada ? 'bg-white/5 text-texto-secundario' : 'bg-exito/10 text-exito'}`}>
+                              <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${venta.anulada ? 'bg-superficie-hover text-texto-secundario' : 'bg-exito/10 text-exito'}`}>
                                 <ReceiptText size={16} />
                               </div>
                               <div>
@@ -343,7 +343,7 @@ export default function HistorialPage() {
                             {formatearFecha(venta.fecha)}
                           </td>
                           <td className="py-3.5 px-4 whitespace-nowrap">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-texto-primario">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-superficie-hover border border-borde-sutil text-xs font-medium text-texto-primario">
                               <ArrowRightLeft size={12} className="text-exito" />
                               {venta.metodoPago}
                             </span>
@@ -360,7 +360,7 @@ export default function HistorialPage() {
                             <div className="flex items-center justify-center gap-2">
                               <button
                                 onClick={() => { setSelectedVentaDetalle(venta); setModalDetalleOpen(true); }}
-                                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-texto-primario transition-colors cursor-pointer"
+                                className="p-2 rounded-lg bg-superficie-hover hover:bg-superficie-hover text-texto-primario transition-colors cursor-pointer"
                                 title="Ver detalles"
                               >
                                 <Eye size={15} />
@@ -396,7 +396,7 @@ export default function HistorialPage() {
         <>
           {gastos.length === 0 ? (
             <div className="glass-panel p-8 rounded-2xl flex flex-col items-center justify-center text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 flex items-center justify-center text-texto-secundario mb-4">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-superficie-hover flex items-center justify-center text-texto-secundario mb-4">
                 <Receipt size={28} />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-texto-primario">No hay gastos registrados</h3>
@@ -422,12 +422,12 @@ export default function HistorialPage() {
                           <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-[11px] sm:text-xs text-texto-secundario">
                             <span className="flex items-center gap-1 whitespace-nowrap"><Calendar size={10} /> {formatearFecha(gasto.fecha)}</span>
                             <span className="hidden sm:inline">•</span>
-                            <span className="inline-flex px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] sm:text-xs whitespace-nowrap">{cat}</span>
+                            <span className="inline-flex px-1.5 py-0.5 rounded bg-superficie-hover border border-borde-sutil text-[10px] sm:text-xs whitespace-nowrap">{cat}</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-end border-t border-white/5 sm:border-t-0 pt-2.5 sm:pt-0">
+                      <div className="flex items-center justify-end border-t border-borde-sutil/70 sm:border-t-0 pt-2.5 sm:pt-0">
                         <div className="text-right">
                           <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mb-0.5">Egreso</p>
                           <p className="font-space-grotesk font-bold text-peligro text-base sm:text-lg">
@@ -441,18 +441,18 @@ export default function HistorialPage() {
               </div>
 
               {/* Vista Escritorio (Tabla) */}
-              <div className="hidden md:block glass-panel rounded-xl overflow-hidden border border-white/10">
+              <div className="hidden md:block glass-panel rounded-xl overflow-hidden border border-borde-sutil">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-white/10 bg-white/5 text-[11px] font-bold uppercase tracking-wider text-texto-secundario">
+                      <tr className="border-b border-borde-sutil bg-superficie-hover text-[11px] font-bold uppercase tracking-wider text-texto-secundario">
                         <th className="py-4 px-4">Descripción del Gasto</th>
                         <th className="py-4 px-4">Categoría</th>
                         <th className="py-4 px-4">Fecha</th>
                         <th className="py-4 px-4 text-right">Monto (USD)</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-sm">
+                    <tbody className="divide-y divide-borde-sutil/70 text-sm">
                       {gastosPaginados.map((gasto) => {
                         const desc = obtenerDescripcionGasto(gasto);
                         const cat = gasto.categoria || 'Otros';
@@ -469,7 +469,7 @@ export default function HistorialPage() {
                               </div>
                             </td>
                             <td className="py-3.5 px-4">
-                              <span className="inline-flex px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-texto-primario">
+                              <span className="inline-flex px-2.5 py-1 rounded-lg bg-superficie-hover border border-borde-sutil text-xs font-medium text-texto-primario">
                                 {cat}
                               </span>
                             </td>
@@ -507,7 +507,7 @@ export default function HistorialPage() {
             <button 
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-2 rounded-lg bg-white/5 text-texto-primario hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-lg bg-superficie-hover text-texto-primario hover:bg-superficie-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft size={18} />
             </button>
@@ -517,7 +517,7 @@ export default function HistorialPage() {
             <button 
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-2 rounded-lg bg-white/5 text-texto-primario hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-lg bg-superficie-hover text-texto-primario hover:bg-superficie-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronRight size={18} />
             </button>

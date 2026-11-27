@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Sidebar from '@/components/shared/Sidebar';
+import HeaderSuperior from '@/components/shared/HeaderSuperior';
 import BottomNav from '@/components/shared/BottomNav';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
@@ -17,9 +18,12 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   return (
     <>
       <Sidebar />
-      <main className="flex-1 min-h-[100dvh] relative flex flex-col pt-[calc(env(safe-area-inset-top,0px)+1rem)] md:pt-6 px-4 sm:px-6 md:px-8 pb-24 md:pb-6 max-w-7xl mx-auto w-full">
-        {children}
-      </main>
+      <div className="flex-1 min-h-screen flex flex-col min-w-0">
+        <HeaderSuperior />
+        <main className="flex-1 relative flex flex-col px-4 sm:px-6 md:px-8 py-6 pb-24 md:pb-8 max-w-7xl mx-auto w-full">
+          {children}
+        </main>
+      </div>
       <BottomNav />
     </>
   );

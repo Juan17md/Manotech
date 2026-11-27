@@ -111,7 +111,7 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
               <p className="text-xs text-texto-secundario mt-0.5">{formatearSemana(semanaInicio)}</p>
             </div>
           </div>
-          <button onClick={onClose} aria-label="Cerrar modal de cierre" className="p-2 rounded-full hover:bg-white/10 text-texto-secundario transition-colors">
+          <button onClick={onClose} aria-label="Cerrar modal de cierre" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors">
             <X size={24} />
           </button>
         </div>
@@ -123,7 +123,7 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse min-w-[640px]">
                   <thead>
-                    <tr className="border-b border-white/10 bg-white/5">
+                    <tr className="border-b border-borde-sutil bg-superficie-hover">
                       <th className="p-3 font-medium text-xs text-texto-secundario uppercase tracking-wider">Método</th>
                       <th className="p-3 font-medium text-xs text-texto-secundario uppercase tracking-wider text-right">Ventas</th>
                       <th className="p-3 font-medium text-xs text-texto-secundario uppercase tracking-wider text-right">Retiros</th>
@@ -133,14 +133,14 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                       <th className="p-3 font-medium text-xs text-texto-secundario uppercase tracking-wider text-right">Diferencia</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5">
+                  <tbody className="divide-y divide-borde-sutil/70">
                     {METODOS_PAGO.map(({ value, label }) => {
                       const saldo = resumen.saldo[value] ?? 0;
                       const dif = diferencia[value] ?? 0;
                       const tieneMovimiento = saldo !== 0 || arqueo[value] !== '' || (resumen.gastos[value] ?? 0) !== 0;
                       if (!tieneMovimiento) return null;
                       return (
-                        <tr key={value} className="hover:bg-white/5 transition-colors">
+                        <tr key={value} className="hover:bg-superficie-hover transition-colors">
                           <td className="p-3">
                             <span className="flex items-center gap-2 text-sm font-bold text-texto-primario">
                               <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: METODO_COLORS[value] }} />
@@ -158,7 +158,7 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                               min="0"
                               value={arqueo[value]}
                               onChange={e => setArqueo({ ...arqueo, [value]: e.target.value })}
-                              className="w-28 text-right bg-fondo-principal border border-white/10 rounded-lg px-2.5 py-1.5 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-acento-primario transition-all"
+                              className="w-28 text-right bg-fondo-principal border border-borde-sutil rounded-lg px-2.5 py-1.5 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-acento-primario transition-all"
                               placeholder="0.00"
                               aria-label={`Contado real en ${label}`}
                             />
@@ -169,7 +169,7 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                         </tr>
                       );
                     })}
-                    <tr className="border-t border-white/10 bg-white/5">
+                    <tr className="border-t border-borde-sutil bg-superficie-hover">
                       <td colSpan={4} className="p-3 text-sm font-bold text-texto-primario text-right">Totales</td>
                       <td className="p-3 text-sm font-space-grotesk font-bold text-texto-primario text-right">${resumen.totalSaldo.toFixed(2)}</td>
                       <td className="p-3 text-sm font-space-grotesk font-bold text-texto-primario text-right">${totalArqueo.toFixed(2)}</td>
@@ -192,7 +192,7 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                 value={observaciones}
                 onChange={e => setObservaciones(e.target.value)}
                 rows={2}
-                className="w-full bg-fondo-principal border border-white/10 rounded-xl px-4 py-3 text-texto-primario focus:outline-none focus:border-acento-primario transition-all resize-none"
+                className="w-full bg-fondo-principal border border-borde-sutil rounded-xl px-4 py-3 text-texto-primario focus:outline-none focus:border-acento-primario transition-all resize-none"
                 placeholder="Ej: Faltante de $5 en efectivo, cambio dado mal, etc."
               />
             </div>
