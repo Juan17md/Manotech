@@ -119,6 +119,7 @@ Los tokens viven en `src/app/globals.css` y se consumen como utilidades de Tailw
 
 - Base funcional replicada y adaptada a la identidad **MANOTECH**.
 - Entorno **dev** (`nanotech-dev-4d17d`) con administrador y catálogo de prueba.
+- **Vercel Preview** aislado sobre el entorno `dev`, para revisar cambios sin afectar los datos reales de producción.
 - Integraciones de Sentry/Telegram y backups a Google Drive **preparadas pero desactivadas** hasta configurar credenciales propias.
 - Pendiente: validación funcional manual, endurecimiento de reglas y despliegue a producción.
 
