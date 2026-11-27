@@ -73,7 +73,7 @@ export default function DashboardPage() {
       <div className="space-y-6">
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario truncate">Panel Principal</h2>
+          <h2 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario truncate">Panel Principal</h2>
           <p className="text-texto-secundario mt-1 text-sm sm:text-base">Bienvenido a MANOTECH, resumen en tiempo real.</p>
         </div>
         
@@ -93,9 +93,9 @@ export default function DashboardPage() {
         <div className="col-span-2 md:col-span-1 glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Ventas del Día</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${metricas.ingresosHoy.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${metricas.ingresosHoy.toFixed(2)}</h3>
             {tasaBCV !== null && tasaBCV > 0 && (
-              <p className="font-space-grotesk text-xs text-texto-secundario mt-0.5 truncate">
+              <p className="font-cifras text-xs text-texto-secundario mt-0.5 truncate">
                 ≈ Bs {(metricas.ingresosHoy * tasaBCV).toFixed(2)}
               </p>
             )}
@@ -108,7 +108,7 @@ export default function DashboardPage() {
         <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Ganancia Neta Hoy</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${metricas.gananciaHoy.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${metricas.gananciaHoy.toFixed(2)}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-exito/10 flex items-center justify-center text-exito shrink-0 ml-3">
             <TrendingUp size={22} />
@@ -118,7 +118,7 @@ export default function DashboardPage() {
         <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Transacciones Hoy</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1">{metricas.transaccionesHoy}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-texto-primario mt-1">{metricas.transaccionesHoy}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-acento-primario/10 flex items-center justify-center text-acento-primario shrink-0 ml-3">
             <Receipt size={22} />
@@ -128,7 +128,7 @@ export default function DashboardPage() {
         <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Equipos Hoy</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1">{metricas.equiposHoy}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-texto-primario mt-1">{metricas.equiposHoy}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-acento-primario/10 flex items-center justify-center text-acento-primario shrink-0 ml-3">
             <Smartphone size={22} />
@@ -140,7 +140,7 @@ export default function DashboardPage() {
             <p className={`text-xs sm:text-sm font-medium ${metricas.alertasStock > 0 ? 'text-peligro' : 'text-texto-secundario'}`}>
               Alertas Stock
             </p>
-            <h3 className={`font-space-grotesk font-bold text-2xl sm:text-3xl mt-1 ${metricas.alertasStock > 0 ? 'text-texto-primario' : 'text-texto-secundario'}`}>
+            <h3 className={`font-cifras font-bold text-2xl sm:text-3xl mt-1 ${metricas.alertasStock > 0 ? 'text-texto-primario' : 'text-texto-secundario'}`}>
               {metricas.alertasStock}
             </h3>
           </div>
@@ -155,7 +155,7 @@ export default function DashboardPage() {
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Tasa BCV (Dólar Oficial)</p>
             {tasaBCV !== null && tasaBCV > 0 ? (
               <>
-                <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">
+                <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">
                   Bs {tasaBCV.toFixed(2)}
                 </h3>
                 <p className="text-xs text-texto-secundario mt-0.5">
@@ -163,7 +163,7 @@ export default function DashboardPage() {
                 </p>
               </>
             ) : (
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-texto-secundario mt-1">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-texto-secundario mt-1">
                 Sin conexión
               </h3>
             )}
@@ -177,7 +177,7 @@ export default function DashboardPage() {
 
       {/* Acciones Rápidas */}
       <div className="space-y-3">
-        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario">Acciones Rápidas</h3>
+        <h3 className="font-titulos font-bold text-lg text-texto-primario">Acciones Rápidas</h3>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           
           {/* Registrar Venta */}
@@ -223,7 +223,7 @@ export default function DashboardPage() {
       {/* Últimas Ventas */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario">Últimas 10 Ventas</h3>
+          <h3 className="font-titulos font-bold text-lg text-texto-primario">Últimas 10 Ventas</h3>
           <Link href="/historial" className="text-acento-primario text-sm font-medium hover:underline flex items-center gap-1">
             Ver todo <ArrowRight size={14} />
           </Link>
@@ -263,7 +263,7 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-2 shrink-0">
                     <div className="text-right mr-1">
                       <p className="text-[10px] text-texto-secundario uppercase tracking-wider mb-0.5">{obtenerCantidadTotal(venta)} und.</p>
-                      <p className={`font-space-grotesk font-bold text-sm sm:text-base ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>${obtenerTotalVenta(venta).toFixed(2)}</p>
+                      <p className={`font-cifras font-bold text-sm sm:text-base ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>${obtenerTotalVenta(venta).toFixed(2)}</p>
                     </div>
                     <button
                       onClick={() => { setSelectedVentaDetalle(venta); setModalDetalleOpen(true); }}
@@ -324,10 +324,10 @@ export default function DashboardPage() {
                             {venta.metodoPago}
                           </span>
                         </td>
-                        <td className="p-4 text-sm font-space-grotesk font-bold text-texto-primario text-center">
+                        <td className="p-4 text-sm font-cifras font-bold text-texto-primario text-center">
                           {obtenerCantidadTotal(venta)}
                         </td>
-                        <td className={`p-4 text-sm font-space-grotesk font-bold text-right ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>
+                        <td className={`p-4 text-sm font-cifras font-bold text-right ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>
                           ${obtenerTotalVenta(venta).toFixed(2)}
                         </td>
                         <td className="p-4 text-center">
@@ -378,7 +378,7 @@ export default function DashboardPage() {
             <div className="w-12 h-12 rounded-full bg-peligro/10 text-peligro flex items-center justify-center">
               <Ban size={24} />
             </div>
-            <h3 className="font-plus-jakarta text-lg font-bold text-texto-primario">¿Anular esta venta?</h3>
+            <h3 className="font-titulos text-lg font-bold text-texto-primario">¿Anular esta venta?</h3>
             <p className="text-xs text-texto-secundario leading-relaxed">
               Esta acción no se puede deshacer. Se reajustará el stock y las finanzas automáticamente.
             </p>

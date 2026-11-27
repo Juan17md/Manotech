@@ -105,7 +105,7 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
           <div className="flex items-center gap-3 text-acento-primario">
             <ClipboardCheck size={24} />
             <div>
-              <h2 className="font-plus-jakarta text-xl font-bold">
+              <h2 className="font-titulos text-xl font-bold">
                 {cierreExistente ? 'Editar Cierre de Caja' : 'Realizar Cierre de Caja'}
               </h2>
               <p className="text-xs text-texto-secundario mt-0.5">{formatearSemana(semanaInicio)}</p>
@@ -147,10 +147,10 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                               {label}
                             </span>
                           </td>
-                          <td className="p-3 text-sm font-space-grotesk text-texto-secundario text-right">${(resumen.ventas[value] ?? 0).toFixed(2)}</td>
-                          <td className="p-3 text-sm font-space-grotesk text-acento-aviso text-right">-${(resumen.retiros[value] ?? 0).toFixed(2)}</td>
-                          <td className="p-3 text-sm font-space-grotesk text-peligro text-right">-${(resumen.gastos[value] ?? 0).toFixed(2)}</td>
-                          <td className="p-3 text-sm font-space-grotesk font-bold text-texto-primario text-right">${saldo.toFixed(2)}</td>
+                          <td className="p-3 text-sm font-cifras text-texto-secundario text-right">${(resumen.ventas[value] ?? 0).toFixed(2)}</td>
+                          <td className="p-3 text-sm font-cifras text-acento-aviso text-right">-${(resumen.retiros[value] ?? 0).toFixed(2)}</td>
+                          <td className="p-3 text-sm font-cifras text-peligro text-right">-${(resumen.gastos[value] ?? 0).toFixed(2)}</td>
+                          <td className="p-3 text-sm font-cifras font-bold text-texto-primario text-right">${saldo.toFixed(2)}</td>
                           <td className="p-3 text-right">
                             <input
                               type="number"
@@ -158,12 +158,12 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                               min="0"
                               value={arqueo[value]}
                               onChange={e => setArqueo({ ...arqueo, [value]: e.target.value })}
-                              className="w-28 text-right bg-fondo-principal border border-borde-sutil rounded-lg px-2.5 py-1.5 font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-acento-primario transition-all"
+                              className="w-28 text-right bg-fondo-principal border border-borde-sutil rounded-lg px-2.5 py-1.5 font-cifras font-bold text-texto-primario focus:outline-none focus:border-acento-primario transition-all"
                               placeholder="0.00"
                               aria-label={`Contado real en ${label}`}
                             />
                           </td>
-                          <td className={`p-3 text-sm font-space-grotesk font-bold text-right ${dif >= 0 ? 'text-exito' : 'text-peligro'}`}>
+                          <td className={`p-3 text-sm font-cifras font-bold text-right ${dif >= 0 ? 'text-exito' : 'text-peligro'}`}>
                             {dif === 0 ? '—' : `${dif > 0 ? '+' : ''}$${dif.toFixed(2)}`}
                           </td>
                         </tr>
@@ -171,9 +171,9 @@ export default function ModalCierre({ isOpen, onClose, onNotify, semanaInicio, r
                     })}
                     <tr className="border-t border-borde-sutil bg-superficie-hover">
                       <td colSpan={4} className="p-3 text-sm font-bold text-texto-primario text-right">Totales</td>
-                      <td className="p-3 text-sm font-space-grotesk font-bold text-texto-primario text-right">${resumen.totalSaldo.toFixed(2)}</td>
-                      <td className="p-3 text-sm font-space-grotesk font-bold text-texto-primario text-right">${totalArqueo.toFixed(2)}</td>
-                      <td className={`p-3 text-sm font-space-grotesk font-bold text-right ${totalDiferencia >= 0 ? 'text-exito' : 'text-peligro'}`}>
+                      <td className="p-3 text-sm font-cifras font-bold text-texto-primario text-right">${resumen.totalSaldo.toFixed(2)}</td>
+                      <td className="p-3 text-sm font-cifras font-bold text-texto-primario text-right">${totalArqueo.toFixed(2)}</td>
+                      <td className={`p-3 text-sm font-cifras font-bold text-right ${totalDiferencia >= 0 ? 'text-exito' : 'text-peligro'}`}>
                         {totalDiferencia === 0 ? '—' : `${totalDiferencia > 0 ? '+' : ''}$${totalDiferencia.toFixed(2)}`}
                       </td>
                     </tr>

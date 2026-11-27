@@ -175,7 +175,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
         <div className="p-5 md:p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--glass-bg)]">
           <div className="flex items-center gap-3 text-exito">
             <ShoppingCart size={24} />
-            <h2 className="font-plus-jakarta text-xl font-bold">Nueva Venta</h2>
+            <h2 className="font-titulos text-xl font-bold">Nueva Venta</h2>
             {itemsCarrito.length > 0 && (
               <span className="bg-exito text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
                 {itemsCarrito.length} {itemsCarrito.length === 1 ? 'artículo' : 'artículos'}
@@ -265,14 +265,14 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                 <div className="p-4 rounded-xl border border-exito/30 bg-exito/5 flex flex-col gap-2">
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-texto-primario font-medium">Total a Cobrar:</p>
-                    <p className="font-space-grotesk text-2xl font-bold text-exito">
+                    <p className="font-cifras text-2xl font-bold text-exito">
                       ${totalUSD.toFixed(2)}
                     </p>
                   </div>
                   {tasaBCV && (
                     <div className="flex justify-between items-center border-t border-exito/10 pt-2 text-xs">
                       <p className="text-texto-secundario">Total en Bolívares (BCV):</p>
-                      <p className="font-space-grotesk font-bold text-texto-primario">
+                      <p className="font-cifras font-bold text-texto-primario">
                         Bs. {new Intl.NumberFormat('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(totalUSD * tasaBCV)}
                       </p>
                     </div>
@@ -344,7 +344,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                           </span>
                         </div>
                         <div className="flex items-center gap-2.5 shrink-0">
-                          <span className="font-space-grotesk font-bold text-exito text-sm sm:text-base">
+                          <span className="font-cifras font-bold text-exito text-sm sm:text-base">
                             ${p.precioVenta.toFixed(2)}
                           </span>
                           <div className="w-6 h-6 rounded-md bg-exito/20 text-exito flex items-center justify-center">
@@ -415,7 +415,7 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                                 >
                                   <Minus size={12} />
                                 </button>
-                                <span className="font-space-grotesk font-bold text-sm text-texto-primario w-6 text-center">
+                                <span className="font-cifras font-bold text-sm text-texto-primario w-6 text-center">
                                   {item.cantidadVendida}
                                 </span>
                                 <button
@@ -438,12 +438,12 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                                 value={item.precioVentaFinal || ''}
                                 onChange={e => actualizarPrecio(item.productoId, e.target.value)}
                                 placeholder={`$${item.precioSugerido.toFixed(2)}`}
-                                className="w-full bg-fondo-principal border border-borde-sutil rounded-md px-2.5 py-1.5 text-sm font-space-grotesk font-bold text-texto-primario focus:outline-none focus:border-exito text-right"
+                                className="w-full bg-fondo-principal border border-borde-sutil rounded-md px-2.5 py-1.5 text-sm font-cifras font-bold text-texto-primario focus:outline-none focus:border-exito text-right"
                               />
                             </td>
 
                             {/* Subtotal */}
-                            <td className="p-3 text-right font-space-grotesk font-bold text-exito text-sm sm:text-base whitespace-nowrap">
+                            <td className="p-3 text-right font-cifras font-bold text-exito text-sm sm:text-base whitespace-nowrap">
                               ${(item.precioVentaFinal * item.cantidadVendida).toFixed(2)}
                             </td>
 
@@ -471,14 +471,14 @@ export default function NuevaVentaModal({ isOpen, onClose, onNotify }: Props) {
                 <div className="p-4 rounded-xl border border-exito/30 bg-exito/5 flex flex-col gap-2">
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-texto-primario font-medium">Total a Cobrar:</p>
-                    <p className="font-space-grotesk text-2xl font-bold text-exito">
+                    <p className="font-cifras text-2xl font-bold text-exito">
                       ${totalUSD.toFixed(2)}
                     </p>
                   </div>
                   {tasaBCV && (
                     <div className="flex justify-between items-center border-t border-exito/10 pt-2 text-xs">
                       <p className="text-texto-secundario">Total en Bolívares (BCV):</p>
-                      <p className="font-space-grotesk font-bold text-texto-primario">
+                      <p className="font-cifras font-bold text-texto-primario">
                         Bs. {new Intl.NumberFormat('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(totalUSD * tasaBCV)}
                       </p>
                     </div>

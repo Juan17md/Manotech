@@ -52,7 +52,7 @@ export default function CambiarContrasenaPage() {
             <CheckCircle size={32} className="text-exito" />
           </div>
           <div>
-            <h1 className="font-plus-jakarta font-bold text-2xl text-texto-primario">¡Contraseña actualizada!</h1>
+            <h1 className="font-titulos font-bold text-2xl text-texto-primario">¡Contraseña actualizada!</h1>
             <p className="text-sm text-texto-secundario mt-2">Serás redirigido al sistema en un momento...</p>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function CambiarContrasenaPage() {
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-acento-aviso to-acento-primario flex items-center justify-center box-glow-primario mb-4 sm:mb-5 shadow-lg shadow-acento-primario/20">
             <Lock size={28} className="text-white" />
           </div>
-          <h1 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">
+          <h1 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">
             Primer Inicio de Sesión
           </h1>
           <p className="text-sm text-texto-secundario mt-2 font-medium max-w-xs">

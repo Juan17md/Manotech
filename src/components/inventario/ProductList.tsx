@@ -114,14 +114,14 @@ export default function ProductList({ productos, loading, onEdit, onDelete }: Pr
             <div className="grid grid-cols-2 gap-2">
               <div className="bg-fondo-principal/50 p-2.5 rounded-lg border border-borde-sutil/70">
                 <p className="text-[10px] text-texto-secundario uppercase tracking-wider mb-0.5">Precio Venta</p>
-                <p className="font-space-grotesk font-bold text-exito">${p.precioVenta.toFixed(2)}</p>
+                <p className="font-cifras font-bold text-exito">${p.precioVenta.toFixed(2)}</p>
               </div>
               <div className={`p-2.5 rounded-lg border ${getEstadoStock(p) === 'disponible' ? 'bg-fondo-principal/50 border-borde-sutil/70' : BADGES_ESTADO[getEstadoStock(p)].clase}`}>
                 <p className={`text-[10px] uppercase tracking-wider mb-0.5 ${getEstadoStock(p) === 'disponible' ? 'text-texto-secundario' : BADGES_ESTADO[getEstadoStock(p)].texto}`}>
                   Stock Actual
                 </p>
                 <div className="flex items-center justify-between gap-1">
-                  <p className={`font-space-grotesk font-bold ${getEstadoStock(p) === 'disponible' ? 'text-texto-primario' : BADGES_ESTADO[getEstadoStock(p)].texto}`}>
+                  <p className={`font-cifras font-bold ${getEstadoStock(p) === 'disponible' ? 'text-texto-primario' : BADGES_ESTADO[getEstadoStock(p)].texto}`}>
                     {p.stockActual} und.
                   </p>
                   {getEstadoStock(p) !== 'disponible' && (
@@ -156,7 +156,7 @@ export default function ProductList({ productos, loading, onEdit, onDelete }: Pr
               {productosPaginados.map(p => (
                 <tr key={p.id} className="hover:bg-superficie-hover transition-colors">
                   <td className="p-4">
-                    <span className="font-space-grotesk text-xs text-texto-secundario bg-superficie-hover border border-borde-sutil px-2 py-0.5 rounded-md">
+                    <span className="font-cifras text-xs text-texto-secundario bg-superficie-hover border border-borde-sutil px-2 py-0.5 rounded-md">
                       {p.sku}
                     </span>
                   </td>
@@ -174,15 +174,15 @@ export default function ProductList({ productos, loading, onEdit, onDelete }: Pr
                       {getIcon(p.categoria)} {p.categoria}
                     </span>
                   </td>
-                  <td className="p-4 font-space-grotesk text-texto-secundario">
+                  <td className="p-4 font-cifras text-texto-secundario">
                     ${p.costoCompra.toFixed(2)}
                   </td>
-                  <td className="p-4 font-space-grotesk font-bold text-exito">
+                  <td className="p-4 font-cifras font-bold text-exito">
                     ${p.precioVenta.toFixed(2)}
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
-                      <span className={`font-space-grotesk font-bold px-3 py-1 rounded-lg border ${BADGES_ESTADO[getEstadoStock(p)].clase}`}>
+                      <span className={`font-cifras font-bold px-3 py-1 rounded-lg border ${BADGES_ESTADO[getEstadoStock(p)].clase}`}>
                         {p.stockActual}
                       </span>
                       <span className={`text-[10px] font-bold uppercase tracking-wide ${BADGES_ESTADO[getEstadoStock(p)].texto}`}>

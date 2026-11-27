@@ -17,9 +17,9 @@
   --color-exito: var(--color-exito);
   --color-peligro: var(--color-peligro);
 
-  --font-inter: var(--font-inter), sans-serif;
-  --font-plus-jakarta: var(--font-plus-jakarta-sans), sans-serif;
-  --font-space-grotesk: var(--font-space-grotesk), monospace;
+  --font-titulos: var(--font-sora), sans-serif;
+  --font-cuerpo: var(--font-manrope), sans-serif;
+  --font-cifras: var(--font-ibm-plex-mono), ui-monospace, monospace;
 }
 
 :root {
@@ -81,7 +81,7 @@
 }
 
 body {
-  font-family: var(--font-inter);
+  font-family: var(--font-cuerpo);
   background-color: var(--color-fondo-principal);
   color: var(--color-texto-primario);
   -webkit-font-smoothing: antialiased;

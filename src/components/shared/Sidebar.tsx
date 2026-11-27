@@ -68,7 +68,7 @@ export default function Sidebar() {
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <h1 className="font-plus-jakarta font-bold text-base text-texto-primario tracking-tight leading-none">
+            <h1 className="font-titulos font-bold text-base text-texto-primario tracking-tight leading-none">
               MANOTECH
             </h1>
             <span className="text-[9px] font-bold text-acento-primario bg-acento-primario/10 border border-acento-primario/25 px-1 py-0.2 rounded-md">

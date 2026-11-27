@@ -1,13 +1,18 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
+import { Sora, Manrope, IBM_Plex_Mono } from 'next/font/google';
 import { Providers } from '@/components/providers/Providers';
 import { AuthGuard } from '@/components/providers/AuthGuard';
 import './globals.css';
 import LayoutWrapper from '@/components/shared/LayoutWrapper';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans', display: 'swap' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
+const sora = Sora({ subsets: ['latin'], variable: '--font-sora', display: 'swap' });
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' });
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-ibm-plex-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'MANOTECH',
@@ -35,8 +40,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="es" className={`light ${inter.variable} ${plusJakartaSans.variable} ${spaceGrotesk.variable}`}>
-      <body className="font-inter bg-fondo-principal text-texto-primario antialiased flex min-h-screen">
+    <html lang="es" className={`light ${sora.variable} ${manrope.variable} ${ibmPlexMono.variable}`}>
+      <body className="font-cuerpo bg-fondo-principal text-texto-primario antialiased flex min-h-screen">
         <Providers>
           <AuthGuard>
             <LayoutWrapper>{children}</LayoutWrapper>

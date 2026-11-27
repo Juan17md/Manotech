@@ -63,7 +63,7 @@ export function EditarUsuarioModal({ usuario, abierto, onCerrar, onExito, onErro
           <div className="flex items-center gap-3 text-acento-aviso">
             <Save size={24} />
             <div>
-              <h2 className="font-plus-jakarta text-xl font-bold text-texto-primario">Editar Usuario</h2>
+              <h2 className="font-titulos text-xl font-bold text-texto-primario">Editar Usuario</h2>
               <p className="text-xs text-texto-secundario">{usuario.email}</p>
             </div>
           </div>

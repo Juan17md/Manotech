@@ -51,7 +51,7 @@ export default function LoginPage() {
           alt="MANOTECH Logo"
           className="w-auto h-44 object-contain drop-shadow-[0_0_30px_rgba(125,68,218,0.35)]"
         />
-        <h1 className="font-plus-jakarta font-bold text-5xl text-texto-primario tracking-tight text-center">MANOTECH</h1>
+        <h1 className="font-titulos font-bold text-5xl text-texto-primario tracking-tight text-center">MANOTECH</h1>
         <p className="text-texto-secundario font-medium text-center max-w-sm leading-relaxed">
           Plataforma integral para la gestión de ventas, inventario y finanzas de tu negocio.
         </p>
@@ -70,12 +70,12 @@ export default function LoginPage() {
             alt="MANOTECH Logo"
             className="w-auto h-24 sm:h-28 mb-4 object-contain"
           />
-          <h1 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">MANOTECH Admin</h1>
+          <h1 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight">MANOTECH Admin</h1>
           <p className="text-sm text-texto-secundario mt-2 font-medium">Ingresa tus credenciales de propietario</p>
         </div>
 
         <div className="w-full max-w-lg mx-auto">
-          <h2 className="hidden lg:block font-plus-jakarta font-bold text-4xl text-texto-primario tracking-tight mb-2">Bienvenido de nuevo</h2>
+          <h2 className="hidden lg:block font-titulos font-bold text-4xl text-texto-primario tracking-tight mb-2">Bienvenido de nuevo</h2>
           <p className="hidden lg:block text-sm text-texto-secundario mb-10 font-medium">Ingresa tus credenciales de propietario</p>
 
           <form onSubmit={handleLogin} className="space-y-5">

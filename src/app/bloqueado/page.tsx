@@ -13,7 +13,7 @@ export default function BloqueadoPage() {
           <AlertTriangle size={32} className="text-peligro" />
         </div>
 
-        <h1 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight mb-3">
+        <h1 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario tracking-tight mb-3">
           Acceso Bloqueado
         </h1>
 

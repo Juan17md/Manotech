@@ -112,7 +112,7 @@ export default function FinanzasPage() {
       {/* Cabecera y Botones de Acción */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div className="min-w-0">
-          <h2 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario">Finanzas</h2>
+          <h2 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario">Finanzas</h2>
           <p className="text-texto-secundario mt-1 text-sm sm:text-base">Reporte operativo semanal.</p>
         </div>
 
@@ -161,7 +161,7 @@ export default function FinanzasPage() {
           {esInicioDelHistorial && (
             <span className="text-[10px] font-bold text-texto-secundario bg-superficie-hover border border-borde-sutil px-2 py-0.5 rounded-md tracking-wide">Inicio del historial</span>
           )}
-          <span className="font-plus-jakarta font-bold text-base text-texto-primario">{formatearSemana(semanaSeleccionada)}</span>
+          <span className="font-titulos font-bold text-base text-texto-primario">{formatearSemana(semanaSeleccionada)}</span>
           {noEsSemanaActual && (
             <button
               onClick={irSemanaActual}
@@ -190,7 +190,7 @@ export default function FinanzasPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Ingresos Brutos</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-texto-primario truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-texto-primario truncate">
                 ${finanzas.ingresosBrutos.toFixed(2)}
               </h3>
             </div>
@@ -205,7 +205,7 @@ export default function FinanzasPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Ganancia Operativa</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-exito truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-exito truncate">
                 ${finanzas.gananciaNeta.toFixed(2)}
               </h3>
             </div>
@@ -220,7 +220,7 @@ export default function FinanzasPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Gastos Totales</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-peligro truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-peligro truncate">
                 ${finanzas.totalGastos.toFixed(2)}
               </h3>
             </div>
@@ -235,7 +235,7 @@ export default function FinanzasPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Balance Neto</p>
-              <h3 className={`font-space-grotesk font-bold text-xl sm:text-2xl truncate ${finanzas.balancePuro >= 0 ? 'text-exito' : 'text-peligro'}`}>
+              <h3 className={`font-cifras font-bold text-xl sm:text-2xl truncate ${finanzas.balancePuro >= 0 ? 'text-exito' : 'text-peligro'}`}>
                 ${finanzas.balancePuro.toFixed(2)}
               </h3>
               <p className="text-[10px] text-texto-secundario mt-0.5">
@@ -253,7 +253,7 @@ export default function FinanzasPage() {
       {/* Tabla de Egresos de la Semana */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario">Egresos de la Semana</h3>
+          <h3 className="font-titulos font-bold text-lg text-texto-primario">Egresos de la Semana</h3>
           <Link href="/historial" className="text-acento-primario text-sm font-medium hover:underline flex items-center gap-1">
             Ver todo <ArrowRight size={14} />
           </Link>
@@ -291,7 +291,7 @@ export default function FinanzasPage() {
                       <td className="p-4 text-xs text-texto-secundario">
                         {new Date(gasto.fecha).toLocaleDateString('es-VE', { day: '2-digit', month: 'short' })}
                       </td>
-                      <td className="p-4 text-sm font-space-grotesk font-bold text-peligro text-right">
+                      <td className="p-4 text-sm font-cifras font-bold text-peligro text-right">
                         ${gasto.monto.toFixed(2)}
                       </td>
                     </tr>
@@ -300,7 +300,7 @@ export default function FinanzasPage() {
                 <tfoot>
                   <tr className="border-t border-borde-sutil bg-superficie-hover">
                     <td colSpan={3} className="p-4 text-sm font-bold text-texto-primario text-right">Total Egresos</td>
-                    <td className="p-4 text-sm font-space-grotesk font-bold text-peligro text-right">
+                    <td className="p-4 text-sm font-cifras font-bold text-peligro text-right">
                       ${finanzas.totalGastos.toFixed(2)}
                     </td>
                   </tr>

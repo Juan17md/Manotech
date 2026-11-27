@@ -5,9 +5,9 @@ import * as Sentry from '@sentry/nextjs';
 import { Inter, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
 import { RefreshCw, AlertTriangle } from 'lucide-react';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta-sans', display: 'swap' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-cuerpo', display: 'swap' });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-titulos-sans', display: 'swap' });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-cifras', display: 'swap' });
 
 /**
  * Global Error Boundary — Captura errores que ocurren en el propio Root Layout.
@@ -67,7 +67,7 @@ export default function GlobalError({
               fontSize: '1.75rem',
               fontWeight: 700,
               marginBottom: '0.75rem',
-              fontFamily: 'var(--font-plus-jakarta-sans), system-ui, sans-serif',
+              fontFamily: 'var(--font-titulos-sans), system-ui, sans-serif',
             }}
           >
             Error Crítico del Sistema
@@ -91,7 +91,7 @@ export default function GlobalError({
               style={{
                 fontSize: '0.7rem',
                 color: 'rgba(100, 116, 139, 0.5)',
-                fontFamily: 'var(--font-space-grotesk), monospace',
+                fontFamily: 'var(--font-cifras), monospace',
                 marginBottom: '2rem',
               }}
             >
@@ -134,7 +134,7 @@ export default function GlobalError({
               marginTop: '3rem',
               fontSize: '0.65rem',
               color: 'rgba(100, 116, 139, 0.4)',
-              fontFamily: 'var(--font-space-grotesk), monospace',
+              fontFamily: 'var(--font-cifras), monospace',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
             }}

@@ -45,7 +45,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
         <div className="p-5 md:p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--glass-bg)]">
           <div className="flex items-center gap-3 text-exito">
             <ReceiptText size={24} />
-            <h2 className="font-plus-jakarta text-xl font-bold text-texto-primario">Detalle de Ticket</h2>
+            <h2 className="font-titulos text-xl font-bold text-texto-primario">Detalle de Ticket</h2>
           </div>
           <button onClick={onClose} aria-label="Cerrar detalle de venta" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer">
             <X size={24} />
@@ -92,15 +92,15 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
                         </div>
                         <div className="min-w-0">
                           <p className="font-bold text-sm text-texto-primario leading-tight truncate">{item.nombreProducto}</p>
-                          <p className="text-[10px] text-texto-secundario mt-0.5 font-space-grotesk">
+                          <p className="text-[10px] text-texto-secundario mt-0.5 font-cifras">
                             {item.cantidadVendida} × ${item.precioVentaFinal.toFixed(2)}
                           </p>
                         </div>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="font-space-grotesk font-bold text-exito text-sm">${subtotalUSD.toFixed(2)}</p>
+                        <p className="font-cifras font-bold text-exito text-sm">${subtotalUSD.toFixed(2)}</p>
                         {tasaBCV && (
-                          <p className="text-[10px] text-texto-secundario font-space-grotesk">
+                          <p className="text-[10px] text-texto-secundario font-cifras">
                             Bs. {new Intl.NumberFormat('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(subtotalUSD * tasaBCV)}
                           </p>
                         )}
@@ -113,9 +113,9 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
                 <div className="p-3 rounded-xl border border-exito/20 bg-exito/5 flex justify-between items-center">
                   <p className="text-sm text-texto-primario font-medium">Total de Venta:</p>
                   <div className="text-right">
-                    <p className="font-space-grotesk font-bold text-texto-primario text-xl">${totalUSD.toFixed(2)}</p>
+                    <p className="font-cifras font-bold text-texto-primario text-xl">${totalUSD.toFixed(2)}</p>
                     {totalBS && (
-                      <p className="text-xs text-texto-secundario font-space-grotesk mt-0.5">
+                      <p className="text-xs text-texto-secundario font-cifras mt-0.5">
                         Bs. {new Intl.NumberFormat('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(totalBS)}
                       </p>
                     )}
@@ -128,19 +128,19 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
                 <div className="flex justify-between items-start gap-4">
                   <div>
                     <p className="font-bold text-texto-primario text-base leading-tight">{venta.nombreProducto}</p>
-                    <p className="text-xs text-texto-secundario mt-1 font-space-grotesk">Cantidad: {venta.cantidadVendida} unidades</p>
+                    <p className="text-xs text-texto-secundario mt-1 font-cifras">Cantidad: {venta.cantidadVendida} unidades</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-space-grotesk font-bold text-exito text-lg">${venta.precioVentaFinal.toFixed(2)} c/u</p>
+                    <p className="font-cifras font-bold text-exito text-lg">${venta.precioVentaFinal.toFixed(2)} c/u</p>
                   </div>
                 </div>
                 
                 <div className="border-t border-borde-sutil/70 pt-3 flex justify-between items-center">
                   <p className="text-sm text-texto-secundario">Total de Venta:</p>
                   <div className="text-right">
-                    <p className="font-space-grotesk font-bold text-texto-primario text-xl">${totalUSD.toFixed(2)}</p>
+                    <p className="font-cifras font-bold text-texto-primario text-xl">${totalUSD.toFixed(2)}</p>
                     {totalBS && (
-                      <p className="text-xs text-texto-secundario font-space-grotesk mt-0.5">
+                      <p className="text-xs text-texto-secundario font-cifras mt-0.5">
                         Bs. {new Intl.NumberFormat('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(totalBS)}
                       </p>
                     )}
@@ -214,7 +214,7 @@ export default function DetalleVentaModal({ isOpen, onClose, venta, tasaBCV }: P
                 <Calendar size={18} className="text-acento-primario shrink-0" />
                 <div>
                   <p className="text-[10px] text-texto-secundario uppercase leading-none">Fecha de Registro</p>
-                  <p className="text-[11px] font-bold text-texto-primario mt-1.5 leading-tight font-space-grotesk">{formatearFecha(venta.fecha)}</p>
+                  <p className="text-[11px] font-bold text-texto-primario mt-1.5 leading-tight font-cifras">{formatearFecha(venta.fecha)}</p>
                 </div>
               </div>
             </div>

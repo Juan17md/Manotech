@@ -139,7 +139,7 @@ export default function CajaPage() {
       {/* Cabecera y Botones de Acción */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div className="min-w-0">
-          <h2 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario">Caja</h2>
+          <h2 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario">Caja</h2>
           <p className="text-texto-secundario mt-1 text-sm sm:text-base">
             Saldo disponible por método de pago y cierres dominicales.
           </p>
@@ -191,7 +191,7 @@ export default function CajaPage() {
           {esInicioDelHistorial && (
             <span className="text-[10px] font-bold text-texto-secundario bg-superficie-hover border border-borde-sutil px-2 py-0.5 rounded-md tracking-wide">Inicio del historial</span>
           )}
-          <span className="font-plus-jakarta font-bold text-base text-texto-primario">{formatearSemana(semanaSeleccionada)}</span>
+          <span className="font-titulos font-bold text-base text-texto-primario">{formatearSemana(semanaSeleccionada)}</span>
           {noEsSemanaActual && (
             <button
               onClick={irSemanaActual}
@@ -258,7 +258,7 @@ export default function CajaPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Ventas de la Semana</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-exito truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-exito truncate">
                 ${resumen.totalVentas.toFixed(2)}
               </h3>
             </div>
@@ -272,7 +272,7 @@ export default function CajaPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Retiros de la Semana</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-acento-aviso truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-acento-aviso truncate">
                 ${resumen.totalRetiros.toFixed(2)}
               </h3>
             </div>
@@ -286,7 +286,7 @@ export default function CajaPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Gastos de la Semana</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-peligro truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-peligro truncate">
                 ${resumen.totalGastos.toFixed(2)}
               </h3>
             </div>
@@ -300,7 +300,7 @@ export default function CajaPage() {
           <div className="flex items-start justify-between">
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-medium text-texto-secundario mb-1">Saldo Disponible Total</p>
-              <h3 className="font-space-grotesk font-bold text-xl sm:text-2xl text-texto-primario truncate">
+              <h3 className="font-cifras font-bold text-xl sm:text-2xl text-texto-primario truncate">
                 ${resumen.totalSaldo.toFixed(2)}
               </h3>
               <p className="text-[10px] text-texto-secundario mt-0.5">Ventas − Retiros − Gastos</p>
@@ -315,7 +315,7 @@ export default function CajaPage() {
       {/* Tarjetas por Método de Pago */}
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario">Saldo por Método de Pago</h3>
+          <h3 className="font-titulos font-bold text-lg text-texto-primario">Saldo por Método de Pago</h3>
           <div className="p-1 glass-panel rounded-xl flex shrink-0">
             <button
               onClick={() => setModoSaldo('total')}
@@ -354,26 +354,26 @@ export default function CajaPage() {
                   <span className="w-3 h-3 rounded-full shrink-0" style={{ background: METODO_COLORS[value] }} />
                   <h4 className="text-sm font-bold text-texto-primario">{label}</h4>
                 </div>
-                <p className="font-space-grotesk font-bold text-2xl text-texto-primario mb-3">
+                <p className="font-cifras font-bold text-2xl text-texto-primario mb-3">
                   ${saldoMetodo.toFixed(2)}
                 </p>
                 {esMetodoBolivares && tasaBCV && (
-                  <p className="font-space-grotesk font-bold text-lg text-texto-secundario -mt-2 mb-3">
+                  <p className="font-cifras font-bold text-lg text-texto-secundario -mt-2 mb-3">
                     Bs. {new Intl.NumberFormat('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(saldoMetodo * tasaBCV)}
                   </p>
                 )}
                 <div className="flex flex-col gap-1 text-xs">
                   <span className="flex justify-between text-texto-secundario">
                     <span className="flex items-center gap-1"><TrendingUp size={12} className="text-exito" /> Ventas</span>
-                    <span className="font-space-grotesk text-exito">${ventasMetodo.toFixed(2)}</span>
+                    <span className="font-cifras text-exito">${ventasMetodo.toFixed(2)}</span>
                   </span>
                   <span className="flex justify-between text-texto-secundario">
                     <span className="flex items-center gap-1"><TrendingDown size={12} className="text-acento-aviso" /> Retiros</span>
-                    <span className="font-space-grotesk text-acento-aviso">-${retirosMetodo.toFixed(2)}</span>
+                    <span className="font-cifras text-acento-aviso">-${retirosMetodo.toFixed(2)}</span>
                   </span>
                   <span className="flex justify-between text-texto-secundario">
                     <span className="flex items-center gap-1"><Receipt size={12} className="text-peligro" /> Gastos</span>
-                    <span className="font-space-grotesk text-peligro">-${gastosMetodo.toFixed(2)}</span>
+                    <span className="font-cifras text-peligro">-${gastosMetodo.toFixed(2)}</span>
                   </span>
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default function CajaPage() {
       {/* Retiros de la Semana */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario">Retiros de la Semana</h3>
+          <h3 className="font-titulos font-bold text-lg text-texto-primario">Retiros de la Semana</h3>
           <button
             onClick={() => setModalRetiroOpen(true)}
             className="flex items-center gap-1.5 text-acento-primario text-sm font-medium hover:underline"
@@ -428,7 +428,7 @@ export default function CajaPage() {
                       <td className="p-4 text-xs text-texto-secundario">
                         {new Date(retiro.fecha).toLocaleString('es-VE', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                       </td>
-                      <td className="p-4 text-sm font-space-grotesk font-bold text-acento-aviso text-right">
+                      <td className="p-4 text-sm font-cifras font-bold text-acento-aviso text-right">
                         -${retiro.monto.toFixed(2)}
                       </td>
                       <td className="p-4 text-right">
@@ -446,7 +446,7 @@ export default function CajaPage() {
                 <tfoot>
                   <tr className="border-t border-borde-sutil bg-superficie-hover">
                     <td colSpan={3} className="p-4 text-sm font-bold text-texto-primario text-right">Total Retiros</td>
-                    <td className="p-4 text-sm font-space-grotesk font-bold text-acento-aviso text-right">
+                    <td className="p-4 text-sm font-cifras font-bold text-acento-aviso text-right">
                       -${resumen.totalRetiros.toFixed(2)}
                     </td>
                     <td />
@@ -460,7 +460,7 @@ export default function CajaPage() {
 
       {/* Historial de Cierres */}
       <div className="space-y-3">
-        <h3 className="font-plus-jakarta font-bold text-lg text-texto-primario">Historial de Cierres</h3>
+        <h3 className="font-titulos font-bold text-lg text-texto-primario">Historial de Cierres</h3>
         <HistorialCierres cierres={cierres} onSeleccionar={abrirCierreExistente} />
       </div>
 
@@ -472,7 +472,7 @@ export default function CajaPage() {
               <div className="w-12 h-12 rounded-full bg-peligro/10 text-peligro flex items-center justify-center">
                 <Trash2 size={24} />
               </div>
-              <h3 className="font-plus-jakarta text-lg font-bold text-texto-primario">¿Eliminar este retiro?</h3>
+              <h3 className="font-titulos text-lg font-bold text-texto-primario">¿Eliminar este retiro?</h3>
               <p className="text-xs text-texto-secundario leading-relaxed">
                 Se eliminará el retiro de <b className="text-texto-primario">${retiroAEliminar.monto.toFixed(2)}</b> por{' '}
                 <b className="text-texto-primario">{nombreMetodo(retiroAEliminar.metodoPago)}</b>. Esta acción no se puede deshacer.

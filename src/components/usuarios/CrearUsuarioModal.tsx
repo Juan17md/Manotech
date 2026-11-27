@@ -50,7 +50,7 @@ export function CrearUsuarioModal({ abierto, onCerrar, onExito, onError }: Props
         <div className="p-5 md:p-6 border-b border-[var(--glass-border)] flex justify-between items-center bg-[var(--glass-bg)]">
           <div className="flex items-center gap-3 text-acento-primario">
             <UserPlus size={24} />
-            <h2 className="font-plus-jakarta text-xl font-bold text-texto-primario">Nuevo Usuario</h2>
+            <h2 className="font-titulos text-xl font-bold text-texto-primario">Nuevo Usuario</h2>
           </div>
           <button onClick={onCerrar} disabled={loading} aria-label="Cerrar modal de crear usuario" className="p-2 rounded-full hover:bg-superficie-hover text-texto-secundario transition-colors">
             <X size={24} />

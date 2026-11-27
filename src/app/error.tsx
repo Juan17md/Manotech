@@ -30,7 +30,7 @@ export default function Error({
       </div>
 
       {/* Mensaje amigable */}
-      <h2 className="font-plus-jakarta text-2xl sm:text-3xl font-bold text-texto-primario mb-3">
+      <h2 className="font-titulos text-2xl sm:text-3xl font-bold text-texto-primario mb-3">
         Algo salió mal
       </h2>
       <p className="text-texto-secundario text-sm sm:text-base max-w-md mb-2 leading-relaxed">
@@ -39,7 +39,7 @@ export default function Error({
 
       {/* Código de error (solo digest, sin exponer detalles) */}
       {error.digest && (
-        <p className="text-xs text-texto-secundario/50 font-space-grotesk mb-8">
+        <p className="text-xs text-texto-secundario/50 font-cifras mb-8">
           Ref: {error.digest}
         </p>
       )}
@@ -64,7 +64,7 @@ export default function Error({
       </div>
 
       {/* Branding sutil */}
-      <p className="mt-12 text-xs text-texto-secundario/60 font-space-grotesk tracking-widest uppercase">
+      <p className="mt-12 text-xs text-texto-secundario/60 font-cifras tracking-widest uppercase">
         MANOTECH
       </p>
     </div>

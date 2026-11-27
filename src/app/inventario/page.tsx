@@ -124,7 +124,7 @@ export default function InventarioPage() {
       {/* Header y Acciones */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario">Inventario</h2>
+          <h2 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario">Inventario</h2>
           <p className="text-texto-secundario mt-1 text-sm sm:text-base">Gestiona tu stock de teléfonos y accesorios.</p>
         </div>
         
@@ -155,7 +155,7 @@ export default function InventarioPage() {
         <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Total Invertido</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-acento-primario mt-1 truncate">${totalesInventario.totalInvertido.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-acento-primario mt-1 truncate">${totalesInventario.totalInvertido.toFixed(2)}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-acento-primario/10 flex items-center justify-center text-acento-primario shrink-0 ml-3">
             <Wallet size={22} />
@@ -166,7 +166,7 @@ export default function InventarioPage() {
         <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Total de Ganancia</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${totalesInventario.totalGanancia.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-exito mt-1 truncate">${totalesInventario.totalGanancia.toFixed(2)}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-exito/10 flex items-center justify-center text-exito shrink-0 ml-3">
             <TrendingUp size={22} />
@@ -177,7 +177,7 @@ export default function InventarioPage() {
         <div className="glass-panel p-5 md:p-6 rounded-2xl flex items-center justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-acento-primario/10 transition-all duration-300">
           <div className="min-w-0">
             <p className="text-xs sm:text-sm text-texto-secundario font-medium">Total Global</p>
-            <h3 className="font-space-grotesk font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${totalesInventario.total.toFixed(2)}</h3>
+            <h3 className="font-cifras font-bold text-2xl sm:text-3xl text-texto-primario mt-1 truncate">${totalesInventario.total.toFixed(2)}</h3>
           </div>
           <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-superficie-hover flex items-center justify-center text-texto-primario shrink-0 ml-3">
             <BadgeDollarSign size={22} />

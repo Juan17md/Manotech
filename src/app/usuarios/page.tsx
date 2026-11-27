@@ -56,7 +56,7 @@ export default function UsuariosPage() {
       {/* Cabecera */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-plus-jakarta font-bold text-texto-primario">Gestión de Usuarios</h1>
+          <h1 className="text-2xl sm:text-3xl font-titulos font-bold text-texto-primario">Gestión de Usuarios</h1>
           <p className="text-sm text-texto-secundario mt-1">Administra los accesos al sistema</p>
         </div>
         <button

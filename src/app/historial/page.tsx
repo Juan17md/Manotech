@@ -138,7 +138,7 @@ export default function HistorialPage() {
       {/* Cabecera y Acciones */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="font-plus-jakarta font-bold text-2xl sm:text-3xl text-texto-primario">Historial</h2>
+          <h2 className="font-titulos font-bold text-2xl sm:text-3xl text-texto-primario">Historial</h2>
           <p className="text-texto-secundario mt-1 text-sm sm:text-base">Registro cronológico de todos tus movimientos.</p>
         </div>
 
@@ -262,12 +262,12 @@ export default function HistorialPage() {
                     <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 border-t border-borde-sutil/70 sm:border-t-0 pt-2.5 sm:pt-0">
                       <div className="text-left sm:text-right">
                         <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mb-0.5">Cantidad</p>
-                        <p className="font-space-grotesk font-bold text-texto-primario text-sm sm:text-base">{obtenerCantidadTotal(venta)} und.</p>
+                        <p className="font-cifras font-bold text-texto-primario text-sm sm:text-base">{obtenerCantidadTotal(venta)} und.</p>
                       </div>
                       
                       <div className="text-right">
                         <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mb-0.5">Ingreso Neto</p>
-                        <p className={`font-space-grotesk font-bold text-base sm:text-lg ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>
+                        <p className={`font-cifras font-bold text-base sm:text-lg ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>
                           ${obtenerTotalVenta(venta).toFixed(2)}
                         </p>
                       </div>
@@ -348,11 +348,11 @@ export default function HistorialPage() {
                               {venta.metodoPago}
                             </span>
                           </td>
-                          <td className="py-3.5 px-4 text-center font-space-grotesk font-bold text-texto-primario">
+                          <td className="py-3.5 px-4 text-center font-cifras font-bold text-texto-primario">
                             {obtenerCantidadTotal(venta)} und.
                           </td>
                           <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                            <span className={`font-space-grotesk font-bold text-base ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>
+                            <span className={`font-cifras font-bold text-base ${venta.anulada ? 'text-texto-secundario line-through' : 'text-exito'}`}>
                               ${obtenerTotalVenta(venta).toFixed(2)}
                             </span>
                           </td>
@@ -430,7 +430,7 @@ export default function HistorialPage() {
                       <div className="flex items-center justify-end border-t border-borde-sutil/70 sm:border-t-0 pt-2.5 sm:pt-0">
                         <div className="text-right">
                           <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mb-0.5">Egreso</p>
-                          <p className="font-space-grotesk font-bold text-peligro text-base sm:text-lg">
+                          <p className="font-cifras font-bold text-peligro text-base sm:text-lg">
                             -${monto.toFixed(2)}
                           </p>
                         </div>
@@ -477,7 +477,7 @@ export default function HistorialPage() {
                               {formatearFecha(gasto.fecha)}
                             </td>
                             <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                              <span className="font-space-grotesk font-bold text-base text-peligro">
+                              <span className="font-cifras font-bold text-base text-peligro">
                                 -${monto.toFixed(2)}
                               </span>
                             </td>
@@ -534,7 +534,7 @@ export default function HistorialPage() {
               <div className="w-12 h-12 rounded-full bg-peligro/10 text-peligro flex items-center justify-center">
                 <Ban size={24} />
               </div>
-              <h3 className="font-plus-jakarta text-lg font-bold text-texto-primario">¿Anular esta venta?</h3>
+              <h3 className="font-titulos text-lg font-bold text-texto-primario">¿Anular esta venta?</h3>
               <p className="text-xs text-texto-secundario leading-relaxed">
                 Esta acción no se puede deshacer. Se reajustará el stock y las finanzas automáticamente.
               </p>

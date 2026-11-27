@@ -38,7 +38,7 @@ export default function HeaderSuperior() {
               alt="MANOTECH"
               className="h-8 w-auto object-contain"
             />
-            <span className="font-plus-jakarta font-bold text-base text-texto-primario tracking-tight">MANOTECH</span>
+            <span className="font-titulos font-bold text-base text-texto-primario tracking-tight">MANOTECH</span>
           </div>
 
           <div className="hidden md:flex flex-col min-w-0">
@@ -47,7 +47,7 @@ export default function HeaderSuperior() {
               <span>/</span>
               <span className="text-acento-primario">{rutaActual.seccion}</span>
             </div>
-            <h2 className="font-plus-jakarta font-bold text-lg text-texto-primario leading-tight truncate">
+            <h2 className="font-titulos font-bold text-lg text-texto-primario leading-tight truncate">
               {rutaActual.titulo}
             </h2>
           </div>
@@ -63,7 +63,7 @@ export default function HeaderSuperior() {
               <span className={`relative inline-flex rounded-full h-2 w-2 ${isOffline ? 'bg-amber-500' : 'bg-exito'}`}></span>
             </span>
             <span className="text-[10px] sm:text-[11px] font-bold text-texto-secundario uppercase tracking-wider">BCV</span>
-            <span className="font-space-grotesk font-bold text-xs sm:text-sm text-texto-primario">
+            <span className="font-cifras font-bold text-xs sm:text-sm text-texto-primario">
               {loadingTasa && !tasaBCV ? (
                 <span className="animate-pulse text-texto-secundario">...</span>
               ) : tasaBCV ? (

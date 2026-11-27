@@ -53,14 +53,14 @@ export default function HistorialCierres({ cierres, onSeleccionar }: Props) {
                     })}
                   </td>
                   <td className="p-4 text-xs text-texto-secundario">{cierre.registradoPorEmail ?? '—'}</td>
-                  <td className="p-4 text-sm font-space-grotesk font-bold text-texto-primario text-right">
+                  <td className="p-4 text-sm font-cifras font-bold text-texto-primario text-right">
                     ${(cierre.totalEsperado ?? 0).toFixed(2)}
                   </td>
-                  <td className="p-4 text-sm font-space-grotesk font-bold text-texto-primario text-right">
+                  <td className="p-4 text-sm font-cifras font-bold text-texto-primario text-right">
                     ${(cierre.totalArqueo ?? 0).toFixed(2)}
                   </td>
                   <td className="p-4 text-right">
-                    <span className={`inline-flex items-center gap-1 text-sm font-space-grotesk font-bold ${
+                    <span className={`inline-flex items-center gap-1 text-sm font-cifras font-bold ${
                       diferencia >= 0 ? 'text-exito' : 'text-peligro'
                     }`}>
                       {diferencia > 0 && <TrendingUp size={14} />}
